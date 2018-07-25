@@ -14,82 +14,89 @@ class DiscordColor {
 
         [int] $embedColor = $null
 
-        switch ($Color) {
+        try {
 
-            'blue' {
+            $embedColor = $color
 
-                $embedColor = 4886754
-            }
+        }
+        catch {
+            switch ($Color) {
 
-            'red' {
+                'blue' {
 
-                $embedColor = 13632027
+                    $embedColor = 4886754
+                }
 
-            }
+                'red' {
 
-            'orange' {
+                    $embedColor = 13632027
 
-                $embedColor = 16098851
+                }
 
-            }
+                'orange' {
 
-            'yellow' {
+                    $embedColor = 16098851
 
-                $embedColor = 16312092
+                }
 
-            }
+                'yellow' {
 
-            'brown' {
+                    $embedColor = 16312092
 
-                $embedColor = 9131818
+                }
 
-            }
+                'brown' {
 
-            'lightGreen' {
+                    $embedColor = 9131818
 
-                $embedColor = 8311585
+                }
 
-            }
+                'lightGreen' {
 
-            'green' {
+                    $embedColor = 8311585
 
-                $embedColor = 4289797
+                }
 
-            }
+                'green' {
 
-            'pink' {
+                    $embedColor = 4289797
 
-                $embedColor = 12390624
+                }
 
-            }
+                'pink' {
 
-            'purple' {
+                    $embedColor = 12390624
 
-                $embedColor = 9442302
+                }
 
-            }
+                'purple' {
 
-            'black' {
+                    $embedColor = 9442302
 
-                $embedColor = 1
-            }
+                }
 
-            'white' {
+                'black' {
 
-                $embedColor = 16777215
+                    $embedColor = 1
+                }
 
-            }
+                'white' {
 
-            'gray' {
+                    $embedColor = 16777215
 
-                $embedColor = 10197915
+                }
 
-            }
+                'gray' {
 
-            default {
+                    $embedColor = 10197915
 
-                $embedColor = 1
+                }
 
+                default {
+
+                    $embedColor = 1
+
+                }
             }
         }
 
@@ -98,12 +105,12 @@ class DiscordColor {
 
     }
 
-    DiscordColor([int]$r, [int]$g, [int]$b) 
+    DiscordColor([int]$r, [int]$g, [int]$b)
     {
         $this.DecimalColor = $this.ConvertFromRgb($r, $g, $b)
     }
 
-    [string] ConvertFromHex([string]$hex) 
+    [string] ConvertFromHex([string]$hex)
     {
         [int]$decimalValue = [Convert]::ToDecimal($hex)
 

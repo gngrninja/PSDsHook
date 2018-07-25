@@ -2,34 +2,29 @@ function Get-EmbedFormat {
     [cmdletbinding()]
     param(
         [Parameter(
-            Mandatory = $true
+            Mandatory
         )]
         [string]
         $Title,
+
         [Parameter(
-            Mandatory = $true
+            Mandatory
         )]
         [String]
         $Content,
+
         [Parameter(
-            Mandatory = $false
+            Mandatory
         )]
-        [String]
-        #[ValidateSet('blue','red','orange','yellow','brown','lightGreen','green','pink','purple','black','white','gray')]
-        $Color        
+        [int]
+        $ColorValue
     )
 
-    if (!$Color) {
-
-        $Color = 'black'
-
-    }
     [System.Collections.ArrayList]$embedAdditions = @()
 
-    $embedColor    = [DiscordColor]::New($Color)
-    $thumbNail     = [DiscordThumbnail]::New($avatarUrl)
-    $fieldTest1    = [DiscordField]::New("field1","some stuff1",$true)
-    $fieldTest2    = [DiscordField]::New("field2","some more stuff2",$true)
+    $thumbNail   = [DiscordThumbnail]::New($avatarUrl)
+    $fieldTest1  = [DiscordField]::New("field1","some stuff1",$true)
+    $fieldTest2  = [DiscordField]::New("field2","some more stuff2",$true)
 
     [System.Collections.ArrayList]$fieldArray = @()
     $fieldArray.Add($fieldTest1) | Out-Null
@@ -40,31 +35,31 @@ function Get-EmbedFormat {
         $thumbNailInfo = [PSCustomObject]@{}
 
         foreach ($property in $thumbNail.PsObject.Properties) {
-    
+
             if ($property.Value) {
-    
+
                 $thumbNailInfo | Add-Member -MemberType NoteProperty -Name $property.Name -Value $property.Value
-    
+
             }
-    
+
         }
 
         $embedAdditions.Add($thumbNailInfo) | Out-Null
 
     }
-    
+
     $embed = [PSCustomObject]@{
 
         title       = $Title
         description = $Content
-        color       = $embedColor.ToString()
+        color       = $ColorValue
         thumbnail   = $thumbNailInfo
         fields      = $fieldArray
 
     }
     <#
     foreach ($property in $embedAdditions.PsObject.Properties) {
-    
+
         if ($property.Value) {
 
             $embed | Add-Member -MemberType NoteProperty -Name $property.Name -Value $property.Value

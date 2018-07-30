@@ -22,7 +22,7 @@ function Get-EmbedFormat {
 
     [System.Collections.ArrayList]$embedAdditions = @()
 
-    $thumbNail   = [DiscordThumbnail]::New($avatarUrl)
+    #$thumbNail   = [DiscordThumbnail]::New($avatarUrl)
     $fieldTest1  = [DiscordField]::New("field1","some stuff1",$true)
     $fieldTest2  = [DiscordField]::New("field2","some more stuff2",$true)
 

@@ -2,7 +2,6 @@ function Invoke-PsDsHook {
     [cmdletbinding()]
     param(
         [Parameter(
-            Mandatory,
             ParameterSetName = 'embed'
         )]
         [string]
@@ -49,7 +48,12 @@ function Invoke-PsDsHook {
             ParameterSetName = 'configList'
         )]
         [switch]
-        $ListConfigs
+        $ListConfigs,
+
+        [Parameter(
+            ParameterSetName = 'embed'
+        )]
+        $EmbedObject
     )
 
     $configPath = "$configDir/$ConfigName.json"
@@ -77,6 +81,8 @@ function Invoke-PsDsHook {
 
         'embed' {
 
+            $hookObject = [PSCustomObject]@{}
+            $possibleHookProperties = $EmbedObject
             foreach ($property in $possibleHookProperties.PsObject.Properties) {
 
                 if ($property.Value) {

@@ -1,6 +1,4 @@
-using module /Users/ninja/Documents/repos/discordWebHook/psdshook.psm1
-[DiscordColor]::New('blue')
-
+using module /Users/ninja/Documents/repos/discordWebHook/PsDsHook.psm1
 #Create array of hook properties
 $possibleHookProperties = [PSCustomObject]@{
 
@@ -16,10 +14,14 @@ $contentType = 'application/json'
 
 $embedColor  = [DiscordColor]::New($Color)
 
-$embedArray.Add($(Get-EmbedFormat -Title $Title -Content $Content -ColorValue $embedColor.DecimalColor)) | Out-Null
+$Title = "Test"
+$Content = "Test"
+$embedArray.Add($(Get-EmbedFormat -Title $Title -Content $Content -ColorValue '4886754')) | Out-Null
 
 $hookObject = [PSCustomObject]@{
 
     embeds = $embedArray
 
 }
+
+Invoke-PsDsHook -EmbedObject $hookObject

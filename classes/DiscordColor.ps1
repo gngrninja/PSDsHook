@@ -3,6 +3,14 @@ class DiscordColor {
     [int]$DecimalColor = $null
     [string]$HexColor  = [string]::Empty
 
+
+    DiscordColor()
+    {
+        $embedColor = 8311585
+        $this.HexColor     = "0x$([Convert]::ToString($embedColor, 16).ToUpper())"
+        $this.DecimalColor = $embedColor
+    }
+
     DiscordColor([int]$hex)
     {
         $this.DecimalColor = $hex
@@ -12,7 +20,7 @@ class DiscordColor {
     DiscordColor([string]$color)
     {
 
-        [int] $embedColor = $null
+        [int]$embedColor = $null
 
         try {
 

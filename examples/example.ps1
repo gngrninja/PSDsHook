@@ -24,4 +24,4 @@ $hookObject = [PSCustomObject]@{
 
 }
 
-Invoke-PsDsHook -EmbedObject $hookObject
+Invoke-PsDsHook -EmbedObject $hookObject -Verbose

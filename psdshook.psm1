@@ -209,4 +209,133 @@ class DiscordColor {
         return $this.DecimalColor
     }
 }
+
+class DiscordEmbed {
+
+    [string]$title                        = [string]::Empty
+    [string]$description                  = [string]::Empty
+    [System.Collections.ArrayList]$fields = @()
+    [string]$color                        = [DiscordColor]::New().ToString()   
+    $thumbnail                            = [string]::Empty
+
+    DiscordEmbed()
+    {
+        Write-Error "Please provide a title and description (and optionally, a color)!"
+    }
+
+    DiscordEmbed([string]$embedTitle, [string]$embedDescription)
+    {
+        $this.title       = $embedTitle
+        $this.description = $embedDescription
+    }
+
+    DiscordEmbed([string]$embedTitle, [string]$embedDescription, [DiscordColor]$embedColor)
+    {
+        $this.title       = $embedTitle
+        $this.description = $embedDescription
+        $this.color       = $embedColor.ToString()
+    }
+
+    [void] AddField($field) 
+    {
+        if ($field.PsObject.TypeNames[0] -eq 'DiscordField')
+        {
+            Write-Verbose "Adding field to field array!"
+            $this.Fields.Add($field) | Out-Null
+        } 
+        else
+        {
+            Write-Error "Did not receive a [DiscordField] object!"
+        }
+    }
+
+    [void] AddThumbnail($thumbNail)
+    {
+        if ($thumbNail.PsObject.TypeNames[0] -eq 'DiscordThumbnail')
+        {
+            $this.thumbnail = $thumbNail
+        } 
+        else 
+        {
+            Write-Error "Did not receive a [DiscordField] object!"
+        }
+    }
+
+    [System.Collections.ArrayList] ListFields()
+    {
+        return $this.Fields
+    }
+
+}
+
+<#
+    $embed = [PSCustomObject]@{
+
+        title       = $Title
+        description = $Content
+        color       = $ColorValue
+        thumbnail   = $thumbNailInfo
+        fields      = $fieldArray
+
+    }
+#>
+class DiscordField
+{
+    [string]$name
+    [string]$value
+    [bool]$inline = $false
+
+    DiscordField([string]$name, [string]$value)
+    {
+        $this.name  = $name
+        $this.value = $value
+    }
+
+    DiscordField([string]$name, [string]$value, [bool]$inline)
+    {
+        $this.name   = $name
+        $this.value  = $value
+        $this.inline = $inline
+    }
+}
+
+class DiscordThumbnail {
+
+    [string]$url = [string]::Empty
+    [int]$width  = $null
+    [int]$height = $null
+
+    DiscordThumbnail([string]$url)
+    {
+        if ([string]::IsNullOrEmpty($url))
+        {
+            Write-Error "Please provide a url!"
+        }
+        else
+        {
+            #$this.Url = $url
+            $this.url = $url
+
+        }
+    }
+
+    DiscordThumbnail([int]$width, [int]$height, [string]$url)
+    {
+        if ([string]::IsNullOrEmpty($url))
+        {
+            Write-Error "Please provide a url!"
+        }
+        else
+        {
+
+            $this.url    = $url
+            $this.height = $height
+            $this.width  = $width
+
+        }
+    }
+
+}
+
+
 $configDir  = "$PSScriptRoot/configs"

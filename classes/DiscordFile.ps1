@@ -1,5 +1,5 @@
-class DiscordFile
-{
+class DiscordFile {
+
     [string]$FilePath                                  = [string]::Empty
     [string]$FileName                                  = [string]::Empty
     [string]$FileTitle                                 = [string]::Empty
@@ -22,6 +22,10 @@ class DiscordFile
         $fileContent                            = [System.Net.Http.StreamContent]::new($fileStream)
         $fileContent.Headers.ContentDisposition = $fileHeader
         $fileContent.Headers.ContentType        = [System.Net.Http.Headers.MediaTypeHeaderValue]::Parse("text/plain")
+
+        $fileStream.Close()        
+        
         return $fileContent
     }
+    
 }

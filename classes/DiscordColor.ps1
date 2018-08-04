@@ -3,7 +3,6 @@ class DiscordColor {
     [int]$DecimalColor = $null
     [string]$HexColor  = [string]::Empty
 
-
     DiscordColor()
     {
         $embedColor = 8311585

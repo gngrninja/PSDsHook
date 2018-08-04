@@ -1,27 +1,43 @@
-using module /Users/ninja/Documents/repos/discordWebHook/PsDsHook.psm1
+using module C:\users\thegn\repos\psdshook\PsDsHook.psm1
+#/Users/ninja/Documents/repos/discordWebHook/PsDsHook.psm1
 #Create array of hook properties
+Import-Module C:\users\thegn\repos\psdshook\PsDsHook.psm1 -Force
+
+[System.Collections.ArrayList]$embedArray = @()
+$thumbUrl                                 = 'https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png'
+$embedBuilder                             = [DiscordEmbed]::New('title','description')
+
+$embedBuilder.AddField(
+    [DiscordField]::New(
+        'field name', 
+        'field value/contents', 
+        $true
+    )
+)
+
+$embedBuilder.AddField(
+    [DiscordField]::New(
+        'field name2',
+        'field value2/contents2', 
+        $true
+    )
+)
+
+$embedBuilder.AddThumbnail(
+    [DiscordThumbnail]::New(
+        $thumbUrl
+    )
+)
+
+$embedArray.Add($embedBuilder) | Out-Null
+
+Invoke-PsDsHook -EmbedObject $embedArray -Verbose
+
+<# Don't use for now
 $possibleHookProperties = [PSCustomObject]@{
 
     avatar_url = $avatarUrl
     username   = $userName
 
 }
-
-$avatarUrl   = 'https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5939e82c3e00beb37d5bc3af/1496967218880/?format=1000w'
-$contentType = 'application/json'
-
-[System.Collections.ArrayList]$embedArray = @()
-
-$embedColor  = [DiscordColor]::New($Color)
-
-$Title = "Test"
-$Content = "Test"
-$embedArray.Add($(Get-EmbedFormat -Title $Title -Content $Content -ColorValue '4886754')) | Out-Null
-
-$hookObject = [PSCustomObject]@{
-
-    embeds = $embedArray
-
-}
-
-Invoke-PsDsHook -EmbedObject $hookObject -Verbose
+#>

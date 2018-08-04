@@ -1,5 +1,5 @@
-class DiscordField
-{
+class DiscordField {
+    
     [string]$name
     [string]$value
     [bool]$inline = $false

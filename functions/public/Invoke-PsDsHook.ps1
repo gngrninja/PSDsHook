@@ -2,27 +2,16 @@ function Invoke-PsDsHook {
     [cmdletbinding()]
     param(
         [Parameter(
-            ParameterSetName = 'embed'
-        )]
-        [string]
-        $Content,
-
-        [Parameter(
-
-        )]
-        $Color,
-
-        [Parameter(
-            ParameterSetName = 'embed'
-        )]
-        [string]
-        $Title,
-
-        [Parameter(
             ParameterSetName = 'createConfig'
         )]
         [switch]
         $CreateConfig,
+
+        [Parameter(
+            ParameterSetName = 'createConfig'
+        )]
+        [string]
+        $Color,
 
         [Parameter(
             Mandatory,
@@ -65,7 +54,6 @@ function Invoke-PsDsHook {
 
     } elseif (!$CreateConfig) {
 
-        #$config      = (Get-Content -Path $configPath | ConvertFrom-Json)
         $config      = [DiscordConfig]::New($configPath)
         $hookUrl     = $config.HookUrl
         if ([string]::IsNullOrEmpty($Color)) {
@@ -81,17 +69,23 @@ function Invoke-PsDsHook {
 
         'embed' {
 
-            $hookObject = [PSCustomObject]@{}
-            $possibleHookProperties = $EmbedObject
-            foreach ($property in $possibleHookProperties.PsObject.Properties) {
+            $hookObject = [PSCustomObject]@{
 
-                if ($property.Value) {
-
-                    $hookObject | Add-Member -MemberType NoteProperty -Name $property.Name -Value $property.Value
-
-                }
+                embeds = $embedArray
 
             }
+
+            #$possibleHookProperties = $hookObject
+
+            #foreach ($property in $possibleHookProperties.PsObject.Properties) {
+
+            #    if ($property.Value) {
+
+            #        $hookObject | Add-Member -MemberType NoteProperty -Name $property.Name -Value $property.Value
+
+            #    }
+
+            #}
 
             Write-Verbose "Sending:"
             Write-Verbose ""
@@ -140,7 +134,16 @@ function Invoke-PsDsHook {
                 $Color = 'lightGreen'
 
             }
+
             [DiscordConfig]::New($WebhookUrl, $Color, $configPath)
+
+        }
+
+        'configList' {
+
+            $configs = (Get-ChildItem -Path $configPath | Where-Object {$_.Extension -eq '.json'} | Select-Object -ExpandProperty Name)
+
+            return 
 
         }
     }

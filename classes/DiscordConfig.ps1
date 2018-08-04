@@ -20,6 +20,13 @@ class DiscordConfig {
     {
         Write-Verbose "Exporting configuration information to -> [$path]"
 
+        $folderPath = Split-Path $path
+        if (!(Test-Path -Path $folderPath))
+        {
+            Write-Verbose "Creating folder -> [$folderPath]"
+            New-Item -ItemType Directory -Path $folderPath            
+        }
+
         $this | ConvertTo-Json | Out-File -FilePath $path
     }
 

@@ -69,31 +69,15 @@ function Invoke-PsDsHook {
 
         'embed' {
 
-            $hookObject = [PSCustomObject]@{
-
-                embeds = $embedArray
-
-            }
-
-            #$possibleHookProperties = $hookObject
-
-            #foreach ($property in $possibleHookProperties.PsObject.Properties) {
-
-            #    if ($property.Value) {
-
-            #        $hookObject | Add-Member -MemberType NoteProperty -Name $property.Name -Value $property.Value
-
-            #    }
-
-            #}
+            $payload = Invoke-PayloadBuilder -PayloadObject $EmbedObject
 
             Write-Verbose "Sending:"
             Write-Verbose ""
-            Write-Verbose ($hookObject | ConvertTo-Json -Depth 4)
+            Write-Verbose ($payload | ConvertTo-Json -Depth 4)
 
             try {
 
-                Invoke-RestMethod -Uri $hookUrl -Body ($hookObject | ConvertTo-Json -Depth 4) -ContentType $contentType -Method Post
+                Invoke-RestMethod -Uri $hookUrl -Body ($payload | ConvertTo-Json -Depth 4) -ContentType $contentType -Method Post
 
             }
             catch {

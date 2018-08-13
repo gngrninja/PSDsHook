@@ -1,4 +1,4 @@
-InModuleScope -ModuleName PsDsHook {
+ InModuleScope -ModuleName PsDsHook {
 
     describe 'DiscordColor' {
 

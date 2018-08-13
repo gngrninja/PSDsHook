@@ -1,7 +1,7 @@
 InModuleScope -ModuleName PsDsHook {
 
     $fileName = 'DiscordFile.tests.ps1'
-    $testFile = "$PSScriptRoot\$fileName"
+    $testFile = "$PSScriptRoot/$fileName"
 
     describe 'DiscordFile' {   
 

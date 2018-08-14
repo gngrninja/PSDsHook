@@ -45,17 +45,20 @@ function Invoke-PsDsHook {
         $EmbedObject
     )
 
+    #Create full path to the configuration file
     $configPath = "$configDir/$ConfigName.json"
 
+    #Ensure we can access the path, and error out if we cannot
     if (!(Test-Path -Path $configPath) -and !$CreateConfig) {
 
-        Write-Error "Unable to access [$configPath]. Please provide a valid configuration name. Use -ListConfigs to list configurations, or -CreateConfig to create one."
-        break
+        throw "Unable to access [$configPath]. Please provide a valid configuration name. Use -ListConfigs to list configurations, or -CreateConfig to create one."
 
     } elseif (!$CreateConfig) {
 
+        #Get configuration information from the file specified
         $config      = [DiscordConfig]::New($configPath)
         $hookUrl     = $config.HookUrl
+        
         if ([string]::IsNullOrEmpty($Color)) {
 
             Write-Verbose "Did not receive a color, using default -> [$($config.DefaultColor)]"
@@ -90,17 +93,16 @@ function Invoke-PsDsHook {
 
         'file' {
 
-            $fileInfo   = [DiscordFile]::New($FilePath)
-            $hookObject = $fileInfo.Content
+            $payload = Invoke-PayloadBuilder -FilePath $FilePath
 
             Write-Verbose "Sending:"
             Write-Verbose ""
-            Write-Verbose ($hookObject | Out-String)
+            Write-Verbose ($payload | Out-String)
 
             #If it is a file, we don't want to include the ContentType parameter as it is included in the body
             try {
 
-                Invoke-RestMethod -Uri $hookUrl -Body $hookObject -Method Post
+                Invoke-RestMethod -Uri $hookUrl -Body $payload -Method Post
 
             }
             catch {
@@ -125,9 +127,9 @@ function Invoke-PsDsHook {
 
         'configList' {
 
-            $configs = (Get-ChildItem -Path $configPath | Where-Object {$_.Extension -eq '.json'} | Select-Object -ExpandProperty Name)
-
-            return 
+            $configs = (Get-ChildItem -Path (Split-Path $configPath) | Where-Object {$_.Extension -eq '.json'} | Select-Object -ExpandProperty Name)
+            
+            return $configs
 
         }
     }

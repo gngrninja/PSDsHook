@@ -1,21 +1,55 @@
 function Invoke-PayloadBuilder {
     [cmdletbinding()]
     param(
-        $PayloadObject
+        [Parameter(
+            ParameterSetName = 'default'
+        )]
+        $PayloadObject,
+        [Parameter(
+            ParameterSetName = 'file'
+        )]
+        $FilePath
     )
     
-    $payload = [PSCustomObject]@{}
+    begin {
 
-    $type = $payloadObject | Get-Member | Select-Object -ExpandProperty TypeName -Unique
+        $payload = [PSCustomObject]@{}
+
+    }
     
-    switch ($type) {
+    process {
 
-        'DiscordEmbed' {
+        switch ($PSCmdlet.ParameterSetName) {
 
-            $payload | Add-Member -MemberType NoteProperty -Name 'embeds' -Value $payloadObject
+            'file' {
 
+                $fileInfo = [DiscordFile]::New($FilePath)
+                $payload  = $fileInfo.Content
+
+            }
+
+            'default' {
+
+                $type = $payloadObject | Get-Member | Select-Object -ExpandProperty TypeName -Unique
+    
+                switch ($type) {
+            
+                    'DiscordEmbed' {
+            
+                        $payload | Add-Member -MemberType NoteProperty -Name 'embeds' -Value $payloadObject
+            
+                    }
+                }
+            }
         }
     }
+
+    end {
+
+        return $payload
+
+    }
+
             #$possibleHookProperties = $hookObject
 
             #foreach ($property in $possibleHookProperties.PsObject.Properties) {
@@ -27,5 +61,4 @@ function Invoke-PayloadBuilder {
             #    }
 
             #}
-    return $payload
 }

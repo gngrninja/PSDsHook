@@ -43,5 +43,18 @@ InModuleScope PsDsHook {
             $payload.embeds[1]    | Should Be $embedArray[1]
 
         }
+
+        it 'Handles files properly' {
+
+            $fileName = 'Invoke-PayloadBuilder.tests.ps1'
+            $testFile = "$PSScriptRoot/$fileName"
+
+            $fileInfo = [DiscordFile]::New($testFile)
+
+            $payload  = Invoke-PayloadBuilder -FilePath $testFile
+
+            ($payload | Out-String) | Should Be ($fileInfo.Content | Out-String)
+
+        }
     }
 }

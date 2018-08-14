@@ -69,7 +69,7 @@ InModuleScope PsDsHook {
 
         it 'Should list configurations' {
 
-            $list           = (Get-ChildItem -Path $configPath | Where-Object {$_.Extension -eq '.json'} | Select-Object -ExpandProperty Name)
+            $list           = (Get-ChildItem -Path (Split-Path -Path $configFullPath) | Where-Object {$_.Extension -eq '.json'} | Select-Object -ExpandProperty Name)
             $listFromModule = Invoke-PsDsHook -ListConfigs
 
             $list | Should Be $listFromModule

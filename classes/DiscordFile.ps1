@@ -21,10 +21,8 @@ class DiscordFile {
         $fileHeader.FileName                    = $this.FileName
         $fileContent                            = [System.Net.Http.StreamContent]::new($fileStream)
         $fileContent.Headers.ContentDisposition = $fileHeader
-        $fileContent.Headers.ContentType        = [System.Net.Http.Headers.MediaTypeHeaderValue]::Parse("text/plain")
+        $fileContent.Headers.ContentType        = [System.Net.Http.Headers.MediaTypeHeaderValue]::Parse("text/plain")   
 
-        $fileStream.Close()        
-        
         return $fileContent
     }
     

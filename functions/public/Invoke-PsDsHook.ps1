@@ -93,7 +93,7 @@ function Invoke-PsDsHook {
 
         'file' {
 
-            $payload = Invoke-PayloadBuilder -FilePath $FilePath
+            $payload = (Invoke-PayloadBuilder -FilePath $FilePath).Content
 
             Write-Verbose "Sending:"
             Write-Verbose ""

@@ -2,20 +2,15 @@ function Invoke-PayloadBuilder {
     [cmdletbinding()]
     param(
         [Parameter(
-            ParameterSetName = 'default'
+            ParameterSetName = 'embed'
         )]
         $PayloadObject,
+
         [Parameter(
             ParameterSetName = 'file'
         )]
         $FilePath
     )
-    
-    begin {
-
-        $payload = [PSCustomObject]@{}
-
-    }
     
     process {
 
@@ -23,12 +18,13 @@ function Invoke-PayloadBuilder {
 
             'file' {
 
-                $fileInfo = [DiscordFile]::New($FilePath)
-                $payload  = $fileInfo.Content
+                $payload = [DiscordFile]::New($FilePath)
 
             }
 
-            'default' {
+            'embed' {
+
+                $payload = [PSCustomObject]@{}
 
                 $type = $payloadObject | Get-Member | Select-Object -ExpandProperty TypeName -Unique
     
@@ -43,7 +39,6 @@ function Invoke-PayloadBuilder {
             }
         }
     }
-
     end {
 
         return $payload

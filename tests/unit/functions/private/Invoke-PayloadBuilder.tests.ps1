@@ -53,7 +53,7 @@ InModuleScope PsDsHook {
 
             $payload  = Invoke-PayloadBuilder -FilePath $testFile
 
-            ($payload | Out-String) | Should Be ($fileInfo.Content | Out-String)
+            $payload.ToString() | Should Be $fileInfo.ToString()
 
         }
     }

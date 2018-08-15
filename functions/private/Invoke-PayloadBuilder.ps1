@@ -2,43 +2,35 @@ function Invoke-PayloadBuilder {
     [cmdletbinding()]
     param(
         [Parameter(
-            ParameterSetName = 'embed'
+            Mandatory
         )]
-        $PayloadObject,
-
-        [Parameter(
-            ParameterSetName = 'file'
-        )]
-        $FilePath
+        $PayloadObject
     )
     
     process {
 
-        switch ($PSCmdlet.ParameterSetName) {
+        $type = $payloadObject | Get-Member | Select-Object -ExpandProperty TypeName -Unique
+    
+        switch ($type) {
 
-            'file' {
+            'DiscordEmbed' {
 
-                $payload = [DiscordFile]::New($FilePath)
+                $payload = [PSCustomObject]@{
+
+                    embeds = $payloadObject
+
+                }
 
             }
 
-            'embed' {
+            'System.String' {
 
-                $payload = [PSCustomObject]@{}
+                $payload = [DiscordFile]::New($payloadObject)
 
-                $type = $payloadObject | Get-Member | Select-Object -ExpandProperty TypeName -Unique
-    
-                switch ($type) {
-            
-                    'DiscordEmbed' {
-            
-                        $payload | Add-Member -MemberType NoteProperty -Name 'embeds' -Value $payloadObject
-            
-                    }
-                }
             }
         }
     }
+    
     end {
 
         return $payload

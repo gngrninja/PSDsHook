@@ -51,7 +51,7 @@ InModuleScope PsDsHook {
 
             $fileInfo = [DiscordFile]::New($testFile)
 
-            $payload  = Invoke-PayloadBuilder -FilePath $testFile
+            $payload  = Invoke-PayloadBuilder -PayloadObject $testFile
 
             $payload.ToString() | Should Be $fileInfo.ToString()
 

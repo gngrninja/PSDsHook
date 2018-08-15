@@ -8,14 +8,12 @@ function Invoke-PsDsHook {
         $CreateConfig,
 
         [Parameter(
-            ParameterSetName = 'createConfig'
+
         )]
         [string]
         $Color,
 
         [Parameter(
-            Mandatory,
-            ParameterSetName = 'createConfig'
         )]
         [string]
         $WebhookUrl,
@@ -45,92 +43,125 @@ function Invoke-PsDsHook {
         $EmbedObject
     )
 
-    #Create full path to the configuration file
-    $configPath = "$configDir/$ConfigName.json"
+    begin {
+        try {
+            #Create full path to the configuration file
+            $configPath = "$configDir/$ConfigName.json"
 
-    #Ensure we can access the path, and error out if we cannot
-    if (!(Test-Path -Path $configPath) -and !$CreateConfig) {
+            #Ensure we can access the path, and error out if we cannot
+            if (!(Test-Path -Path $configPath -ErrorAction SilentlyContinue) -and !$CreateConfig -and !$WebhookUrl) {
 
-        throw "Unable to access [$configPath]. Please provide a valid configuration name. Use -ListConfigs to list configurations, or -CreateConfig to create one."
+                throw "Unable to access [$configPath]. Please provide a valid configuration name. Use -ListConfigs to list configurations, or -CreateConfig to create one."
 
-    } elseif (!$CreateConfig) {
+            } elseif (!$CreateConfig -and $WebhookUrl) {
 
-        #Get configuration information from the file specified
-        $config      = [DiscordConfig]::New($configPath)
-        $hookUrl     = $config.HookUrl
-        
-        if ([string]::IsNullOrEmpty($Color)) {
+                $hookUrl = $WebhookUrl
 
-            Write-Verbose "Did not receive a color, using default -> [$($config.DefaultColor)]"
-            $Color = $config.DefaultColor
+                if (!$Color) {
+
+                    $Color = [DiscordColor]::New().ToString()
+
+                }
+            
+            } elseif (!$CreateConfig) {
+                #Get configuration information from the file specified
+                $config      = [DiscordConfig]::New($configPath)
+                $hookUrl     = $config.HookUrl
+
+                if ([string]::IsNullOrEmpty($Color)) {
+
+                    Write-Verbose "Did not receive a color, using default -> [$($config.DefaultColor)]"
+                    $Color = $config.DefaultColor
+
+                }
+            }
+        }
+        catch {
+
+            $PSCmdlet.ThrowTerminatingError($PSitem)
 
         }
-
     }
 
-    switch ($PSCmdlet.ParameterSetName) {
+    process {
+        try {
+            switch ($PSCmdlet.ParameterSetName) {
 
-        'embed' {
+                'embed' {
+        
+                    $payload = Invoke-PayloadBuilder -PayloadObject $EmbedObject
+        
+                    Write-Verbose "Sending:"
+                    Write-Verbose ""
+                    Write-Verbose ($payload | ConvertTo-Json -Depth 4)
+        
+                    try {
+        
+                        Invoke-RestMethod -Uri $hookUrl -Body ($payload | ConvertTo-Json -Depth 4) -ContentType $contentType -Method Post
+        
+                    }
+                    catch {
+        
+                        $errorMessage = $PSitem.Exception.Message
+                        throw "Error executing Discord Webhook -> [$errorMessage]!"
+        
+                    }
+                }
+        
+                'file' {
+        
+                    $payload = (Invoke-PayloadBuilder -PayloadObject $FilePath).Content
+        
+                    Write-Verbose "Sending:"
+                    Write-Verbose ""
+                    Write-Verbose ($payload | Out-String)
+        
+                    #If it is a file, we don't want to include the ContentType parameter as it is included in the body
+                    try {
+        
+                        Invoke-RestMethod -Uri $hookUrl -Body $payload -Method Post
+        
+                    }
+                    catch {
+        
+                        $errorMessage = $PSitem.Exception.Message
+                        throw "Error executing Discord Webhook -> [$errorMessage]!"
+        
+                    }
+                }
+        
+                'createConfig' {
+        
+                    if ([string]::IsNullOrEmpty($Color)) {
+        
+                        $Color = 'lightGreen'
+        
+                    }
+        
+                    [DiscordConfig]::New($WebhookUrl, $Color, $configPath)
+        
+                }
+        
+                'configList' {
+        
+                    $configs = (Get-ChildItem -Path (Split-Path $configPath) | Where-Object {$PSitem.Extension -eq '.json'} | Select-Object -ExpandProperty Name)
+                    if ($configs) {
 
-            $payload = Invoke-PayloadBuilder -PayloadObject $EmbedObject
+                        Write-Host "Configuration files in [$configDir]:"
+                        return $configs
 
-            Write-Verbose "Sending:"
-            Write-Verbose ""
-            Write-Verbose ($payload | ConvertTo-Json -Depth 4)
+                    } else {
 
-            try {
+                        Write-Host "No configuration files found in [$configDir]"
 
-                Invoke-RestMethod -Uri $hookUrl -Body ($payload | ConvertTo-Json -Depth 4) -ContentType $contentType -Method Post
-
-            }
-            catch {
-
-                $errorMessage = $_.Exception.Message
-                Write-Error "Error executing Discord Webhook -> [$errorMessage]!"
-
+                    }  
+                }
             }
         }
+        catch {
 
-        'file' {
-
-            $payload = (Invoke-PayloadBuilder -FilePath $FilePath).Content
-
-            Write-Verbose "Sending:"
-            Write-Verbose ""
-            Write-Verbose ($payload | Out-String)
-
-            #If it is a file, we don't want to include the ContentType parameter as it is included in the body
-            try {
-
-                Invoke-RestMethod -Uri $hookUrl -Body $payload -Method Post
-
-            }
-            catch {
-
-                $errorMessage = $_.Exception.Message
-                Write-Error "Error executing Discord Webhook -> [$errorMessage]!"
-
-            }
-        }
-
-        'createConfig' {
-
-            if ([string]::IsNullOrEmpty($Color)) {
-
-                $Color = 'lightGreen'
-
-            }
-
-            [DiscordConfig]::New($WebhookUrl, $Color, $configPath)
-
-        }
-
-        'configList' {
-
-            $configs = (Get-ChildItem -Path (Split-Path $configPath) | Where-Object {$_.Extension -eq '.json'} | Select-Object -ExpandProperty Name)
+            $PSCmdlet.ThrowTerminatingError($PSitem)
             
-            return $configs
-
         }
     }
 }

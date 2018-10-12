@@ -1,5 +1,5 @@
 InModuleScope -ModuleName PsDsHook {
-
+    #Fix file in use error, use artifacts
     $fileName = 'DiscordFile.tests.ps1'
     $testFile = "$PSScriptRoot/$fileName"
 

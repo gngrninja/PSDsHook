@@ -48,6 +48,7 @@ InModuleScope -ModuleName PsDsHook {
             $embedWithThumb.AddThumbnail($thumbnail)
 
             $embedWithThumb               | Should Not Be $null
+            $embedWithThumb               | Should BeOfType ([DiscordEmbed])
             $embedWithThumb.thumbnail.url | Should Be $thumbUrl
 
         }

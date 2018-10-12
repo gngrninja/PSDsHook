@@ -36,8 +36,10 @@ function Invoke-PayloadBuilder {
         return $payload
 
     }
+}
 
-            #$possibleHookProperties = $hookObject
+
+           #$possibleHookProperties = $hookObject
 
             #foreach ($property in $possibleHookProperties.PsObject.Properties) {
 
@@ -48,4 +50,3 @@ function Invoke-PayloadBuilder {
             #    }
 
             #}
-}

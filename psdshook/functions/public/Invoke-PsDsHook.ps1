@@ -65,8 +65,8 @@ function Invoke-PsDsHook {
             
             } elseif (!$CreateConfig) {
                 #Get configuration information from the file specified
-                $config      = [DiscordConfig]::New($configPath)
-                $hookUrl     = $config.HookUrl
+                $config  = [DiscordConfig]::New($configPath)
+                $hookUrl = $config.HookUrl
 
                 if ([string]::IsNullOrEmpty($Color)) {
 

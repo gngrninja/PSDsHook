@@ -1,8 +1,8 @@
-using module /Users/ninja/Documents/repos/discordWebHook/psdshook.psm1
+using module /Users/ninja/Documents/repos/discordWebHook/psdshook/psdshook.psm1
+
+Import-Module /Users/ninja/Documents/repos/discordWebHook/psdshook/psdshook.psm1 -Force
 #/Users/ninja/Documents/repos/discordWebHook/PsDsHook.psm1
 #Create array of hook properties
-Import-Module /Users/ninja/Documents/repos/discordWebHook/psdshook.psm1 -Force
-
 [System.Collections.ArrayList]$embedArray = @()
 $thumbUrl                                 = 'https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png'
 $embedBuilder                             = [DiscordEmbed]::New('title','description')

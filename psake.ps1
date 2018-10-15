@@ -144,7 +144,7 @@ task CreateMarkdownHelp -Depends Compile {
     $mdHelpPath = Join-Path -Path $projectRoot -ChildPath 'docs/reference/functions'
     $mdFiles    = New-MarkdownHelp -Module $env:BHProjectName -OutputFolder $mdHelpPath -WithModulePage -Force
 
-    Write-Host \t"Module markdown help created at [$mdHelpPath]"
+    Write-Host `t"Module markdown help created at [$mdHelpPath]"
 
     @($env:BHProjectName).ForEach({
         Remove-Module -Name $_ -Verbose:$false
@@ -159,7 +159,7 @@ task UpdateMarkdownHelp -Depends Compile {
     $mdHelpPath = Join-Path -Path $projectRoot -ChildPath 'docs/reference/functions'
     $mdFiles = Update-MarkdownHelpModule -Path $mdHelpPath -Verbose:$false
 
-    Write-Host \t"Markdown help updated at [$mdHelpPath]"
+    Write-Host `t"Markdown help updated at [$mdHelpPath]"
 
 } -description 'Update markdown help files'
 
@@ -191,12 +191,12 @@ task Build -depends Compile, CreateMarkdownHelp, CreateExternalHelp {
     
     $helpXml = New-ExternalHelp "$projectRoot\docs\reference\functions" -OutputPath (Join-Path -Path $outputModVerDir -ChildPath 'en-US') -Force
     
-    Write-Host \t"Module XML help created at [.helpXml]"
+    Write-Host `t"Module XML help created at [.helpXml]"
 }
 
 Task Publish -Depends Test {
 
-    Write-Host \t"Publishing version [$($manifest.ModuleVersion)] to PSGallery..."
+    Write-Host `t"Publishing version [$($manifest.ModuleVersion)] to PSGallery..."
     Publish-Module -Path $outputModVerDir -NuGetApiKey $env:PSGALLERY_API_KEY -Repository PSGallery
     
 }

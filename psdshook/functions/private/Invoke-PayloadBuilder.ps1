@@ -37,16 +37,3 @@ function Invoke-PayloadBuilder {
 
     }
 }
-
-
-           #$possibleHookProperties = $hookObject
-
-            #foreach ($property in $possibleHookProperties.PsObject.Properties) {
-
-            #    if ($property.Value) {
-
-            #        $hookObject | Add-Member -MemberType NoteProperty -Name $property.Name -Value $property.Value
-
-            #    }
-
-            #}

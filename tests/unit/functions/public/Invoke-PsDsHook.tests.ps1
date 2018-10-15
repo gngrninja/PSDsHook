@@ -23,15 +23,15 @@ InModuleScope PsDsHook {
 
         }
 
-        $name           = 'testConfig'
-        $configFullPath = "$configDir\$name.json"
+        $configDir      = "$PSScriptRoot\..\..\..\artifacts\"
+        $configFullPath = "$PSScriptRoot\..\..\..\artifacts\config.json"        
         $testHookUrl    = 'www.hook.com'
-
+        $name           = 'config'
+        
         it 'Should be able to create a configuration file' {
                                                 
-            Invoke-PsDsHook -CreateConfig -ConfigName $name -Color 'blue' -WebhookUrl $testHookUrl
-
-            (Test-Path -Path $configFullPath) | Should Be $true
+            Write-Host "$configFullPath"
+            Invoke-PsDsHook -CreateConfig -ConfigName $name -Color 'blue' -WebhookUrl $testHookUrl            
 
         }
 

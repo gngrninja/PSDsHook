@@ -46,13 +46,15 @@ InModuleScope PsDsHook {
 
         it 'Handles files properly' {
 
-            $fileName = 'Invoke-PayloadBuilder.tests.ps1'
-            $testFile = "$PSScriptRoot/$fileName"
+            $fileName = 'test.file'            
+            $testFile = "$PSScriptRoot\..\..\..\artifacts\test.file"   
 
-            $fileInfo = [DiscordFile]::New($testFile)
+            $fileInfo = [DiscordFile]::New($testFile)            
+            $fileInfo.Stream.Dispose()
 
             $payload  = Invoke-PayloadBuilder -PayloadObject $testFile
 
+            $payload
             $payload.ToString() | Should Be $fileInfo.ToString()
 
         }

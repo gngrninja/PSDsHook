@@ -24,7 +24,7 @@ class DiscordEmbed {
         $this.color       = $embedColor.ToString()
     }
 
-    [void] AddField($field) 
+    [void]AddField($field) 
     {
         if ($field.PsObject.TypeNames[0] -eq 'DiscordField')
         {
@@ -37,7 +37,7 @@ class DiscordEmbed {
         }
     }
 
-    [void] AddThumbnail($thumbNail)
+    [void]AddThumbnail($thumbNail)
     {
         if ($thumbNail.PsObject.TypeNames[0] -eq 'DiscordThumbnail')
         {
@@ -53,17 +53,4 @@ class DiscordEmbed {
     {
         return $this.Fields
     }
-
 }
-
-<#
-    $embed = [PSCustomObject]@{
-
-        title       = $Title
-        description = $Content
-        color       = $ColorValue
-        thumbnail   = $thumbNailInfo
-        fields      = $fieldArray
-
-    }
-#>

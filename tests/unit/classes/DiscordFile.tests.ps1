@@ -1,7 +1,7 @@
 InModuleScope -ModuleName PsDsHook {
     #Fix file in use error, use artifacts
-    $fileName = 'DiscordFile.tests.ps1'
-    $testFile = "$PSScriptRoot/$fileName"
+    $fileName = 'test.file'
+    $testFile = "$PSScriptRoot/../../artifacts/test.file"
 
     describe 'DiscordFile' {   
 
@@ -14,6 +14,7 @@ InModuleScope -ModuleName PsDsHook {
             $file.FileTitle | Should Be $fileName.Substring(0,$fileName.LastIndexOf('.'))   
             $file.Content   | Should Not Be $null         
 
+            $file.Stream.Dispose()
         }
     }
 }

@@ -1,11 +1,11 @@
 InModuleScope -ModuleName PsDsHook {
 
-    $configPath = "$PSScriptRoot\test.config"
+    $configPath = "$PSScriptRoot\..\..\artifacts\config.json"
     $hookUrl    = 'http://www.somehook.com/data/things/aabbccddEEffggHH'
     $color      = 'blue'
 
     describe 'DiscordConfig' {
-
+        
         it 'Creates configuration file with hook URI and default color' {
 
             $config = [DiscordConfig]::New($hookUrl, $color, $configPath)

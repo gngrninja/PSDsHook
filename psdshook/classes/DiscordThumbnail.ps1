@@ -11,10 +11,8 @@ class DiscordThumbnail {
             Write-Error "Please provide a url!"
         }
         else
-        {
-            #$this.Url = $url
+        {            
             $this.url = $url
-
         }
     }
 
@@ -26,11 +24,9 @@ class DiscordThumbnail {
         }
         else
         {
-
             $this.url    = $url
             $this.height = $height
             $this.width  = $width
-
         }
     }
 }

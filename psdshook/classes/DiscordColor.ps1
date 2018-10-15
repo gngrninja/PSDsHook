@@ -117,14 +117,14 @@ class DiscordColor {
         $this.DecimalColor = $this.ConvertFromRgb($r, $g, $b)
     }
 
-    [string] ConvertFromHex([string]$hex)
+    [string]ConvertFromHex([string]$hex)
     {
         [int]$decimalValue = [Convert]::ToDecimal($hex)
 
         return $decimalValue
     }
 
-    [string] ConvertFromRgb([int]$r, [int]$g, [int]$b)
+    [string]ConvertFromRgb([int]$r, [int]$g, [int]$b)
     {
         $hexR = [Convert]::ToString($r, 16).ToUpper()
         if ($hexR.Length -eq 1)
@@ -151,7 +151,7 @@ class DiscordColor {
         return $decimalValue
     }
 
-    [string] ToString()
+    [string]ToString()
     {
         return $this.DecimalColor
     }

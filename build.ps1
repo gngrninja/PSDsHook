@@ -1,4 +1,3 @@
-
 [cmdletbinding(DefaultParameterSetName = 'task')]
 param(
     [parameter(ParameterSetName = 'task', Position = 0)]
@@ -47,7 +46,7 @@ function Resolve-Module {
                 $latestGalleryVersion = (Find-Module -Name $moduleName -Repository PSGallery |
                     Measure-Object -Property Version -Maximum).Maximum
 
-                # Out we out of date?
+                # Are we out of date?
                 if ($latestLocalVersion -lt $latestGalleryVersion) {
                     if ($UpdateModules) {
                         Write-Verbose -Message "$($moduleName) installed version [$($latestLocalVersion.ToString())] is outdated. Installing gallery version [$($latestGalleryVersion.ToString())]"
@@ -79,7 +78,6 @@ function Resolve-Module {
 
 'BuildHelpers', 'psake' | Resolve-Module -UpdateModules:($PSBoundParameters.ContainsKey('UpdateModules'))
 
-<#
 if ($PSBoundParameters.ContainsKey('help')) {
     Get-PSakeScriptTasks -buildFile "$PSScriptRoot\psake.ps1" |
         Sort-Object -Property Name |
@@ -90,5 +88,3 @@ if ($PSBoundParameters.ContainsKey('help')) {
     Invoke-psake -buildFile "$PSScriptRoot\psake.ps1" -taskList $Task -nologo -Verbose:($VerbosePreference -eq 'Continue')
     exit ( [int]( -not $psake.build_success ) )
 }
-
-#>

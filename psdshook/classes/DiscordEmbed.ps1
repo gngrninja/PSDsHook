@@ -49,6 +49,11 @@ class DiscordEmbed {
         }
     }
 
+    [void]WithColor([DiscordColor]$color)
+    {
+        $this.color = $color
+    }
+    
     [System.Collections.ArrayList] ListFields()
     {
         return $this.Fields

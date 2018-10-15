@@ -31,7 +31,7 @@ InModuleScope PsDsHook {
         it 'Should be able to create a configuration file' {
                                                 
             Write-Host "$configFullPath"
-            Invoke-PsDsHook -CreateConfig -ConfigName $name -Color 'blue' -WebhookUrl $testHookUrl            
+            Invoke-PsDsHook -CreateConfig -ConfigName $name -WebhookUrl $testHookUrl            
 
         }
 

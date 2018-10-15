@@ -1,0 +1,11 @@
+site_name: PSDsHook
+repo_url: https://github.com/gngrninja/PSDsHook
+theme: readthedocs
+nav:
+  - Home: index.md
+  - Reference: 
+    - Functions: 
+      - Invoke-PSDsHook: reference/functions/Invoke-PSDsHook.md
+  - Examples:
+      - Embeds: tutorials/Embeds.md
+      - Embeds With Fields: tutorials/EmbedsWithFields.md

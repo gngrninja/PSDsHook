@@ -1,17 +1,15 @@
 class DiscordConfig {
 
-    [string]$HookUrl    = [string]::Empty
-    [int]$DefaultColor  = 0
+    [string]$HookUrl = [string]::Empty
 
     DiscordConfig([string]$configPath)
     {               
-        $settings = $this.ImportConfig($configPath)    
+        $this.ImportConfig($configPath)    
     }
 
-    DiscordConfig([string]$url, $color, [string]$path)
+    DiscordConfig([string]$url, [string]$path)
     {
-        $this.HookUrl      = $url
-        $this.DefaultColor = [DiscordColor]::New($color).DecimalColor        
+        $this.HookUrl      = $url      
         $this.ExportConfig($path)
     }
 
@@ -36,11 +34,6 @@ class DiscordConfig {
 
         $configSettings = Get-Content -Path $configPath -ErrorAction Stop | ConvertFrom-Json
 
-        $this.HookUrl = $configSettings.HookUrl
-
-        if ($configSettings.DefaultColor) 
-        {
-            $this.DefaultColor = [DiscordColor]::New($configSettings.DefaultColor).DecimalColor
-        }     
+        $this.HookUrl = $configSettings.HookUrl 
     }
 }

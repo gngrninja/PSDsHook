@@ -1,6 +1,6 @@
 #Setup default paths for module in user home dir
 
-$seperator = [io.path]::DirectorySeparatorChar
+$script:seperator = [io.path]::DirectorySeparatorChar
 
 switch ($PSVersionTable.Platform) {
     'Win32NT' {

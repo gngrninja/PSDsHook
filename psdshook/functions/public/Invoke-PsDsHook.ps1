@@ -1,4 +1,4 @@
-function Invoke-PsDsHook {
+function Invoke-PSDsHook {
     <#
     .SYNOPSIS
     Invoke-PsDsHook
@@ -6,14 +6,23 @@ function Invoke-PsDsHook {
     .DESCRIPTION
     This funciton allows you to use Discord Webhooks with embeds, files, and various configuration settings
     .PARAMETER CreateConfig
-    If specified, will create a configuration based on other parameter settings (ConfigName, Color, and WebhookUrl)
-    .PARAMETER Color
-    If specified, allows you to send a color. If a color is unable to be resolved it will default to blue
+    If specified, will create a configuration based on other parameter settings (ConfigName and WebhookUrl)
+
     .EXAMPLE
     (Create a configuration file)
     Configuration files are stored in a sub directory of your user's home directory named .psdshook/configs
 
-    Invoke-PsDsHook -CreateConfig -Color 'blue' -WebhookUrl "www.hook.com/hook"
+    Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook"
+    .EXAMPLE
+    (Create a configuration file with a non-standard name)
+    Configuration files are stored in a sub directory of your user's home directory named .psdshook/configs
+
+    Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook2" -ConfigName 'config2'
+    .EXAMPLE
+    (Send an embed with the default config)
+    
+
+    Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook2" -ConfigName 'config2'
     #>    
     [cmdletbinding()]
     param(
@@ -22,12 +31,6 @@ function Invoke-PsDsHook {
         )]
         [switch]
         $CreateConfig,
-
-        [Parameter(
-
-        )]
-        [string]
-        $Color,
 
         [Parameter(
         )]
@@ -60,8 +63,9 @@ function Invoke-PsDsHook {
     )
 
     begin {            
+
         #Create full path to the configuration file
-        $configPath = "$configDir/$ConfigName.json"
+        $configPath = "$($configDir)$($seperator)$($ConfigName).json"
                     
         #Ensure we can access the path, and error out if we cannot
         if (!(Test-Path -Path $configPath -ErrorAction SilentlyContinue) -and !$CreateConfig -and !$WebhookUrl) {
@@ -72,23 +76,14 @@ function Invoke-PsDsHook {
 
             $hookUrl = $WebhookUrl
 
-            if (!$Color) {
-                
-                $Color = [DiscordColor]::New().ToString()
+            Write-Verbose "Manual mode enabled..."
 
-            }
+        } elseif ((!$CreateConfig -and !$WebhookUrl) -and $configPath) {
 
-        } elseif (!$CreateConfig -and $configPath) {
             #Get configuration information from the file specified                 
             $config = [DiscordConfig]::New($configPath)                
             $hookUrl = $config.HookUrl             
 
-            if ([string]::IsNullOrEmpty($Color)) {
-
-                Write-Verbose "Did not receive a color, using default -> [$($config.DefaultColor)]"
-                $Color = [string]$config.DefaultColor
-
-            }
         }        
     }
 
@@ -147,14 +142,8 @@ function Invoke-PsDsHook {
             }
 
             'createDsConfig' {
-
-                if ([string]::IsNullOrEmpty($Color)) {
-
-                    $Color = 'lightGreen'
-
-                }
                 
-                [DiscordConfig]::New($WebhookUrl, $Color, $configPath)
+                [DiscordConfig]::New($WebhookUrl, $configPath)
 
             }
 

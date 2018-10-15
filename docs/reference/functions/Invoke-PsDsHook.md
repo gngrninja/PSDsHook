@@ -1,11 +1,11 @@
 ---
 external help file: PSDsHook-help.xml
-Module Name: PsDsHook
+Module Name: PSDsHook
 online version:
 schema: 2.0.0
 ---
 
-# Invoke-PsDsHook
+# Invoke-PSDsHook
 
 ## SYNOPSIS
 Invoke-PsDsHook
@@ -15,26 +15,22 @@ Use PowerShell classes to make using Discord Webhooks easy and extensible
 
 ### createDsConfig
 ```
-Invoke-PsDsHook [-CreateConfig] [-Color <String>] [-WebhookUrl <String>] [-ConfigName <String>]
- [<CommonParameters>]
+Invoke-PSDsHook [-CreateConfig] [-WebhookUrl <String>] [-ConfigName <String>] [<CommonParameters>]
 ```
 
 ### file
 ```
-Invoke-PsDsHook [-Color <String>] [-WebhookUrl <String>] -FilePath <String> [-ConfigName <String>]
- [<CommonParameters>]
+Invoke-PSDsHook [-WebhookUrl <String>] -FilePath <String> [-ConfigName <String>] [<CommonParameters>]
 ```
 
 ### configList
 ```
-Invoke-PsDsHook [-Color <String>] [-WebhookUrl <String>] [-ConfigName <String>] [-ListConfigs]
- [<CommonParameters>]
+Invoke-PSDsHook [-WebhookUrl <String>] [-ConfigName <String>] [-ListConfigs] [<CommonParameters>]
 ```
 
 ### embed
 ```
-Invoke-PsDsHook [-Color <String>] [-WebhookUrl <String>] [-ConfigName <String>] [-EmbedObject <Object>]
- [<CommonParameters>]
+Invoke-PSDsHook [-WebhookUrl <String>] [-ConfigName <String>] [-EmbedObject <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,12 +45,28 @@ This funciton allows you to use Discord Webhooks with embeds, files, and various
 
 Configuration files are stored in a sub directory of your user's home directory named .psdshook/configs
 
-Invoke-PsDsHook -CreateConfig -Color 'blue' -WebhookUrl "www.hook.com/hook"
+Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook"
+
+### EXAMPLE 2
+```
+(Create a configuration file with a non-standard name)
+```
+
+Configuration files are stored in a sub directory of your user's home directory named .psdshook/configs
+
+Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook2" -ConfigName 'config2'
+
+### EXAMPLE 3
+```
+(Send an embed with the default config)
+```
+
+Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook2" -ConfigName 'config2'
 
 ## PARAMETERS
 
 ### -CreateConfig
-If specified, will create a configuration based on other parameter settings (ConfigName, Color, and WebhookUrl)
+If specified, will create a configuration based on other parameter settings (ConfigName and WebhookUrl)
 
 ```yaml
 Type: SwitchParameter
@@ -64,22 +76,6 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Color
-If specified, allows you to send a color.
-If a color is unable to be resolved it will default to blue
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

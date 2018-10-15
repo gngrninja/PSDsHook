@@ -13,18 +13,15 @@ $embedBuilder = [DiscordEmbed]::New(
                     'description'
                 )
 
-#Add blue color
+#Add red color
 $embedBuilder.WithColor(
     [DiscordColor]::New(
-            'blue'
+            'red'
     )
 )
 
 #Add the embed to the array created above
 $embedArray.Add($embedBuilder) | Out-Null
 
-#Finally, call the function that will send the embed array to the webhook url via the default configuraiton file
-Invoke-PSDsHook -EmbedObject $embedArray -Verbose
-
-#Example of using another configuration file:
-# Invoke-PSDsHook -EmbedObject $embedArray -ConfigName 'config2' -Verbose
+#Finally, call the function that will send the embed array to the webhook url
+Invoke-PSDsHook -EmbedObject $embedArray -WebhookUrl 'https://discordapp.com/api/webhooks/1337931337/totallywontwork' -Verbose

@@ -193,3 +193,10 @@ task Build -depends Compile, CreateMarkdownHelp, CreateExternalHelp {
     
     Write-Host \t"Module XML help created at [.helpXml]"
 }
+
+Task Publish -Depends Test {
+
+    Write-Host \t"Publishing version [$($manifest.ModuleVersion)] to PSGallery..."
+    Publish-Module -Path $outputModVerDir -NuGetApiKey $env:PSGALLERY_API_KEY -Repository PSGallery
+    
+}

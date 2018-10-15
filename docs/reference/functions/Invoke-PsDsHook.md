@@ -8,7 +8,7 @@ schema: 2.0.0
 # Invoke-PSDsHook
 
 ## SYNOPSIS
-Invoke-PsDsHook
+Invoke-PSDsHook
 Use PowerShell classes to make using Discord Webhooks easy and extensible
 
 ## SYNTAX
@@ -61,7 +61,33 @@ Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook2" -ConfigName 'conf
 (Send an embed with the default config)
 ```
 
-Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook2" -ConfigName 'config2'
+using module PSDsHook
+
+If the module is not in one of the folders listed in ($env:PSModulePath -split "$(\[IO.Path\]::PathSeparator)")
+You must specify the full path to the psm1 file in the above using statement
+Example: using module 'C:\users\thegn\repos\PsDsHook\out\PSDsHook\0.0.1\PSDsHook.psm1'
+
+Create array of hook properties
+\[System.Collections.ArrayList\]$embedArray = @()
+
+Create embed builder object via the \[DiscordEmbed\] class
+$embedBuilder = \[DiscordEmbed\]::New(
+                    'title',
+                    'description'
+                )
+
+Add blue color
+$embedBuilder.WithColor(
+    \[DiscordColor\]::New(
+            'blue'
+    )
+)
+
+Add the embed to the array created above
+$embedArray.Add($embedBuilder) | Out-Null
+
+Finally, call the function that will send the embed array to the webhook url via the default configuraiton file
+Invoke-PSDsHook -EmbedObject $embedArray -Verbose
 
 ## PARAMETERS
 
@@ -81,7 +107,8 @@ Accept wildcard characters: False
 ```
 
 ### -WebhookUrl
-{{Fill WebhookUrl Description}}
+If used with CreateConfig, this is the url that will be stored in the configuration file.
+If used with an embed or file, this URL will be used in the webhook call.
 
 ```yaml
 Type: String
@@ -111,7 +138,8 @@ Accept wildcard characters: False
 ```
 
 ### -ConfigName
-{{Fill ConfigName Description}}
+Specified a name for the configuration file. 
+Can be used when creating a configuration file, as well as when passing embeds/files.
 
 ```yaml
 Type: String
@@ -126,7 +154,7 @@ Accept wildcard characters: False
 ```
 
 ### -ListConfigs
-{{Fill ListConfigs Description}}
+Lists configuration files
 
 ```yaml
 Type: SwitchParameter
@@ -141,7 +169,7 @@ Accept wildcard characters: False
 ```
 
 ### -EmbedObject
-{{Fill EmbedObject Description}}
+Accepts an array of \[EmbedObject\]'s to pass in the webhook call.
 
 ```yaml
 Type: Object

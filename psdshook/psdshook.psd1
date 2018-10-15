@@ -30,10 +30,10 @@ CompanyName = 'Ginger Ninja'
 Copyright = '(c) 2018 Mike Roberts'
 
 # Description of the functionality provided by this module
-Description = 'This module assists with using Discord Webhooks. You can use classes to build objects to make it easier when using embeds.'
+Description = 'This module assists with using Discord Webhooks. You can use classes to build objects, and make it easier when using embeds.'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '5.0'
+PowerShellVersion = '6.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -100,7 +100,7 @@ PrivateData = @{
         Tags = @('PSDsHook','Discord','Webhook')
 
         # A URL to the license for this module.
-        LicenseUri = 'https://github.com/gngrninja/PSDsHook/LICENSE'
+        LicenseUri = 'https://github.com/gngrninja/PSDsHook/blob/master/LICENSE'
 
         # A URL to the main website for this project.
         ProjectUri = 'https://github.com/gngrninja/PSDsHook'
@@ -109,7 +109,7 @@ PrivateData = @{
         IconUri = 'https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png?format=300w'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'https://github.com/gngrninja/PSDsHook/CHANGELOG.md'
+        ReleaseNotes = 'https://github.com/gngrninja/PSDsHook/blob/master/CHANGELOG.md'
 
     } # End of PSData hashtable
 

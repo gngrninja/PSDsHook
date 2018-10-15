@@ -1,12 +1,17 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/9u4rk1k9u4r233b0?svg=true)](https://ci.appveyor.com/project/gngrninja/psdshook)
+
 # PowerShell -> Discord Webhook
-This script allows you to easily consume Discord Wehooks via PowerShell.
+PSDsHook allows you to easily utlize Discord webhooks via PowerShell Core.
 
 ## Getting Started
-The first think you'll want to do is create your configuration file.
 
-To do that, run the script with the follow parameters:
+### Install module from the PowerShell Gallery
+
+This is the easiest way to use the module!
+To install it, use:
+
 ```powershell
-./discordWebhook.ps1 -CreateConfig -HookUrl "put your hook URL here" -DefaultColor purple
+Install-Module PSDsHook
 ```
 
-This will result in a config.json being dropped into the folder you called the script from.
+Then check out the [examples]() and [documentation]() to get started!

@@ -66,6 +66,11 @@ function Invoke-PSDsHook {
 
     Finally, call the function that will send the embed array to the webhook url via the default configuraiton file
     Invoke-PSDsHook -EmbedObject $embedArray -Verbose
+
+    .EXAMPLE
+    (Send an embed with just text)
+
+    Invoke-PSDsHook -HookText 'this is the webhook message' -Verbose
     #>    
     [cmdletbinding()]
     param(
@@ -102,7 +107,13 @@ function Invoke-PSDsHook {
         [Parameter(
             ParameterSetName = 'embed'
         )]
-        $EmbedObject
+        $EmbedObject,
+
+        [Parameter(
+            ParameterSetName = 'simple'
+        )]
+        [string]
+        $HookText
     )
 
     begin {            
@@ -149,7 +160,7 @@ function Invoke-PSDsHook {
                 }
                 catch {
 
-                    $errorMessage = $PSitem.Exception.Message
+                    $errorMessage = $_.Exception.Message
                     throw "Error executing Discord Webhook -> [$errorMessage]!"
 
                 }
@@ -172,7 +183,7 @@ function Invoke-PSDsHook {
                 }
                 catch {
 
-                    $errorMessage = $PSitem.Exception.Message
+                    $errorMessage = $_.Exception.Message
                     throw "Error executing Discord Webhook -> [$errorMessage]!"
 
                 }
@@ -182,6 +193,27 @@ function Invoke-PSDsHook {
                     
                 }
                 
+            }
+
+            'simple' {
+
+                $payload = Invoke-PayloadBuilder -PayloadObject $HookText
+
+                Write-Verbose "Sending:"
+                Write-Verbose ""
+                Write-Verbose ($payload | ConvertTo-Json -Depth 4)
+
+                try {
+
+                    Invoke-RestMethod -Uri $hookUrl -Body ($payload | ConvertTo-Json -Depth 4) -ContentType $contentType -Method Post
+
+                }
+                catch {
+
+                    $errorMessage = $_.Exception.Message
+                    throw "Error executing Discord Webhook -> [$errorMessage]!"
+
+                }
             }
 
             'createDsConfig' {

@@ -25,8 +25,18 @@ function Invoke-PayloadBuilder {
 
             'System.String' {
 
-                $payload = [DiscordFile]::New($payloadObject)
+                if (Test-Path $PayloadObject -ErrorAction SilentlyContinue) {
 
+                    $payload = [DiscordFile]::New($payloadObject)
+
+                } else {
+
+                    $payload = [PSCustomObject]@{
+
+                        content = ($PayloadObject | Out-String)
+
+                    }
+                }                
             }
         }
     }

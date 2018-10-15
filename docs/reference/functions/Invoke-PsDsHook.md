@@ -33,6 +33,11 @@ Invoke-PSDsHook [-WebhookUrl <String>] [-ConfigName <String>] [-ListConfigs] [<C
 Invoke-PSDsHook [-WebhookUrl <String>] [-ConfigName <String>] [-EmbedObject <Object>] [<CommonParameters>]
 ```
 
+### simple
+```
+Invoke-PSDsHook [-WebhookUrl <String>] [-ConfigName <String>] [-HookText <String>] [<CommonParameters>]
+```
+
 ## DESCRIPTION
 This funciton allows you to use Discord Webhooks with embeds, files, and various configuration settings
 
@@ -88,6 +93,13 @@ $embedArray.Add($embedBuilder) | Out-Null
 
 Finally, call the function that will send the embed array to the webhook url via the default configuraiton file
 Invoke-PSDsHook -EmbedObject $embedArray -Verbose
+
+### EXAMPLE 4
+```
+(Send an embed with just text)
+```
+
+Invoke-PSDsHook -HookText 'this is the webhook message' -Verbose
 
 ## PARAMETERS
 
@@ -174,6 +186,21 @@ Accepts an array of \[EmbedObject\]'s to pass in the webhook call.
 ```yaml
 Type: Object
 Parameter Sets: embed
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -HookText
+{{Fill HookText Description}}
+
+```yaml
+Type: String
+Parameter Sets: simple
 Aliases:
 
 Required: False

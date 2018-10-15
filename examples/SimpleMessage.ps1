@@ -11,4 +11,4 @@ $message = "This is the message"
 Invoke-PSDsHook -HookText $message -Verbose
 
 #Example of using another configuration file:
-# Invoke-PSDsHook -EmbedObject $embedArray -ConfigName 'config2' -Verbose
+# Invoke-PSDsHook -HookText $message -ConfigName 'config2' -Verbose

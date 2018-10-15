@@ -14,13 +14,12 @@ If the module is not installed into a folder within one of these directories:
 ($env:PSModulePath -split "$([IO.Path]::PathSeparator)")
 ```
 
-You'll need to use the following statement and point it to your local copy of the module's built .psm1 file
+You'll need to use the following statement and point it to your local copy of the module's built .psm1 file.
 ```powershell
 using module 'C:\users\thegn\repos\PsDsHook\out\PSDsHook\0.0.1\PSDsHook.psm1'
 ```
 
 Embeds are sent as an array, and you can have more than one embed per webhook call. Now we'll want to create an empty array.
-
 ```powershell
 [System.Collections.ArrayList]$embedArray = @()
 ```
@@ -40,7 +39,6 @@ $embedBuilder = [DiscordEmbed]::New(
 ```
 
 Add our thumbnail to the embed:
-
 ```powershell
 $embedBuilder.AddThumbnail(
     [DiscordThumbnail]::New(
@@ -50,7 +48,6 @@ $embedBuilder.AddThumbnail(
 ```
 
 Add a color:
-
 ```powershell
 $embedBuilder.WithColor(
     [DiscordColor]::New(
@@ -60,7 +57,6 @@ $embedBuilder.WithColor(
 ```
 
 Add the embed to the array created above:
-
 ```powershell
 $embedArray.Add($embedBuilder) | Out-Null
 ```

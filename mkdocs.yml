@@ -10,4 +10,5 @@ nav:
       - Configuration Creation: tutorials/CreateConfig.md
       - Embeds: tutorials/Embeds.md
       - Embeds With Fields: tutorials/EmbedsWithFields.md
-      - Sending a simple message: tutorials/SimpleMessage.md
+      - Sending a Simple Message: tutorials/SimpleMessage.md
+      - Sending a File: tutorials/SendFile.md

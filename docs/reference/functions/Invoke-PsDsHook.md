@@ -39,7 +39,7 @@ Invoke-PSDsHook [-WebhookUrl <String>] [-ConfigName <String>] [-HookText <String
 ```
 
 ## DESCRIPTION
-This funciton allows you to use Discord Webhooks with embeds, files, and various configuration settings
+This function allows you to use Discord Webhooks with embeds, files, and various configuration settings
 
 ## EXAMPLES
 
@@ -96,7 +96,7 @@ Invoke-PSDsHook -EmbedObject $embedArray -Verbose
 
 ### EXAMPLE 4
 ```
-(Send an embed with just text)
+(Send an webhook with just text)
 ```
 
 Invoke-PSDsHook -HookText 'this is the webhook message' -Verbose

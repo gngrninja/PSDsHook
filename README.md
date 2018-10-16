@@ -3,6 +3,8 @@
 # PowerShell -> Discord Webhook
 PSDsHook allows you to easily utilize Discord webhooks via [PowerShell Core](https://github.com/PowerShell/PowerShell/releases).
 
+PowerShell core is required for its enhancements to Invoke-RestMethod.
+
 ## Getting Started
 
 ### Install module from the PowerShell Gallery

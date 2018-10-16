@@ -33,5 +33,5 @@ Invoke-PsDsHook -CreateConfig -WebhookUrl 'https://discordapp.com/api/webhooks/4
 
 To list config files available, run:
 ```powershell
-Invoke-PSDsHook -ListConfig
+Invoke-PSDsHook -ListConfigs
 ```

@@ -68,7 +68,7 @@ function Invoke-PSDsHook {
     Invoke-PSDsHook -EmbedObject $embedArray -Verbose
 
     .EXAMPLE
-    (Send an embed with just text)
+    (Send an webhook with just text)
 
     Invoke-PSDsHook -HookText 'this is the webhook message' -Verbose
     #>    

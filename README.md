@@ -16,7 +16,7 @@ To install it, use:
 Install-Module PSDsHook
 ```
 
-Then check out the [documentation](https://psdshook.readthedocs.io/en/master/) and [examples](https://github.com/gngrninja/PSDsHook/tree/master/examples) to get started!
+Then check out the [documentation](https://psdshook.readthedocs.io/en/latest/) and [examples](https://github.com/gngrninja/PSDsHook/tree/master/examples) to get started!
 
 Build instructions coming soon if you would like to build it yourself. Simply running build.ps1 should take care of the basic tasks. You can use the module from the /out directory if it compiles.
 

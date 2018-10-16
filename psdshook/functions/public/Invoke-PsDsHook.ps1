@@ -5,7 +5,7 @@ function Invoke-PSDsHook {
     Use PowerShell classes to make using Discord Webhooks easy and extensible
 
     .DESCRIPTION
-    This funciton allows you to use Discord Webhooks with embeds, files, and various configuration settings
+    This function allows you to use Discord Webhooks with embeds, files, and various configuration settings
 
     .PARAMETER CreateConfig
     If specified, will create a configuration based on other parameter settings (ConfigName and WebhookUrl)

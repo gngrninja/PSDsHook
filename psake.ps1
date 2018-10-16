@@ -71,8 +71,7 @@ task Compile -depends Clean {
     Write-Verbose -Message 'Creating psm1...'
     $psm1 = Copy-Item -Path (Join-Path -Path $sut -ChildPath 'PSDsHook.psm1') -Destination (Join-Path -Path $outputModVerDir -ChildPath "$($ENV:BHProjectName).psm1") -PassThru
 
-    # This is dumb but oh well :)
-    # We need to write out the classes in a particular order
+    # Organize classes based on how they will be accessed
     $classDir = (Join-Path -Path $sut -ChildPath 'Classes')
     @(
         'DiscordColor'      

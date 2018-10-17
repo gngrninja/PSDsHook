@@ -18,7 +18,7 @@ if(
 {
     Deploy Module {
         By PSGalleryModule {
-            FromSource $ENV:BHModulePath
+            FromSource $outputModDir
             To PSGallery
             WithOptions @{
                 ApiKey = $ENV:snowflake

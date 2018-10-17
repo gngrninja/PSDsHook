@@ -18,7 +18,6 @@ function Invoke-PSDsHook {
     Specified a name for the configuration file. 
     Can be used when creating a configuration file, as well as when passing embeds/files.
 
-
     .PARAMETER ListConfigs
     Lists configuration files
 

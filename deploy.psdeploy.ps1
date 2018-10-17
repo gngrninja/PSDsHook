@@ -21,7 +21,7 @@ if(
             FromSource $ENV:BHModulePath
             To PSGallery
             WithOptions @{
-                ApiKey = $ENV:NugetApiKey
+                ApiKey = $ENV:snowflake
             }
         }
     }
@@ -31,7 +31,7 @@ else
     "Skipping deployment: To deploy, ensure that...`n" +
     "`t* You are in a known build system (Current: $ENV:BHBuildSystem)`n" +
     "`t* You are committing to the master branch (Current: $ENV:BHBranchName) `n" +    
-    "`t* Your commit message includes !deploy (Current: $ENV:BHCommitMessage) ($ENV:snowflake)`n" + 
+    "`t* Your commit message includes !deploy (Current: $ENV:BHCommitMessage)`n" + 
     "`t* Diag info (module path) -> (Current: $outputModDir) `n" |
         Write-Host
 }

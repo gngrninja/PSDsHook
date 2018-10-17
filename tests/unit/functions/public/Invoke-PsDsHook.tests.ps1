@@ -15,14 +15,6 @@ InModuleScope PsDsHook {
             
         }
 
-        $mockParams = @{
-
-            CommandName = 'Invoke-RestMethod'
-            Times       = 1
-            Exactly     = $true                
-
-        }
-
         $configDir      = "$PSScriptRoot\..\..\..\artifacts\"
         $configFullPath = "$PSScriptRoot\..\..\..\artifacts\config.json"        
         $testHookUrl    = 'www.hook.com'
@@ -44,8 +36,30 @@ InModuleScope PsDsHook {
 
             $result = Invoke-PsDsHook -EmbedObject $embedArray -ConfigName $name        
             
-            Assert-MockCalled @mockParams
+            Assert-MockCalled -CommandName 'Invoke-RestMethod'
             
+            $payload = [PSCustomObject]@{
+
+                embeds = $embedArray
+
+            } | ConvertTo-Json -Depth 4
+
+            $result.Uri     | Should Be $testHookUrl
+            $result.Payload | Should Be $payload 
+
+        }
+
+        it 'Should be able to receive an embed (no array)' {
+  
+            $embedBuilder = [DiscordEmbed]::New('test title', 'test content')
+
+            $embedArray = New-Object 'System.Collections.Generic.List[DiscordEmbed]'
+            $embedArray.Add($embedBuilder) | Out-Null
+
+            $result = Invoke-PsDsHook -EmbedObject $embedBuilder -ConfigName $name        
+            
+            Assert-MockCalled -CommandName 'Invoke-RestMethod'     
+
             $payload = [PSCustomObject]@{
 
                 embeds = $embedArray

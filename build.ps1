@@ -76,7 +76,7 @@ function Resolve-Module {
     }
 }
 
-'BuildHelpers', 'psake' | Resolve-Module -UpdateModules:($PSBoundParameters.ContainsKey('UpdateModules'))
+'BuildHelpers', 'psake', 'PSDeploy' | Resolve-Module -UpdateModules:($PSBoundParameters.ContainsKey('UpdateModules'))
 
 if ($PSBoundParameters.ContainsKey('help')) {
     Get-PSakeScriptTasks -buildFile "$PSScriptRoot\psake.ps1" |

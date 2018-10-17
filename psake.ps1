@@ -129,6 +129,7 @@ task Pester -Depends Build {
         $testResults | Format-List
         
         Write-Error -Message 'One or more Pester tests failed. Build cannot continue!'
+
     }
 
     Pop-Location
@@ -175,27 +176,32 @@ task Clean -depends Init {
     Remove-Module -Name $env:BHProjectName -Force -ErrorAction SilentlyContinue
 
     if (Test-Path -Path $outputDir) {
+
         Get-ChildItem -Path $outputDir -Recurse | Remove-Item -Force -Recurse
+
     } else {
+
         New-Item -Path $outputDir -ItemType Directory > $null
+
     }
-    "    Cleaned previous output directory [$outputDir]"
+    Write-Host `t"Cleaned previous output directory [$outputDir]"
 
 } -description 'Cleans module output directory'
 
 
 #CreateMarkdownHelp (add back to build)
 task Build -depends Compile, CreateMarkdownHelp, CreateExternalHelp {
-    # External help
-    
+
+    # External help    
     $helpXml = New-ExternalHelp "$projectRoot\docs\reference\functions" -OutputPath (Join-Path -Path $outputModVerDir -ChildPath 'en-US') -Force
     
     Write-Host `t"Module XML help created at [.helpXml]"
+
 }
 
 Task Publish -Depends Test {
 
-    Write-Host `t"Publishing version [$($manifest.ModuleVersion)] to PSGallery..."
-    Publish-Module -Path $outputModVerDir -NuGetApiKey $env:PSGALLERY_API_KEY -Repository PSGallery
-    
+    Write-Host `t"Running PSDeploy for version [$($manifest.ModuleVersion)]..."
+    Invoke-PSDeploy -Path $projectRoot
+
 }

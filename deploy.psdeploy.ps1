@@ -15,14 +15,15 @@ if(
     $env:BHBranchName -eq "master" -and
     $env:BHCommitMessage -match '!deploy'
 )
+
 {
     Deploy Module {
         By PSGalleryModule {
             FromSource $outputModDir
             To PSGallery
             WithOptions @{
-                ApiKey = $ENV:snowflake
-            }
+                ApiKey = $ENV:snowflake             
+            }                        
         }
     }
 }

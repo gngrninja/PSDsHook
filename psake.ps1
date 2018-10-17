@@ -202,6 +202,6 @@ task Build -depends Compile, CreateMarkdownHelp, CreateExternalHelp {
 Task Publish -Depends Test {
 
     Write-Host `t"Running PSDeploy for version [$($manifest.ModuleVersion)]..."
-    Invoke-PSDeploy -Path $projectRoot
+    Invoke-PSDeploy -Path $projectRoot -Force
 
 }

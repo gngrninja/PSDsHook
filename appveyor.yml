@@ -4,7 +4,7 @@ environment:
       PowerShellEdition: PowerShellCore
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       PowerShellEdition: WindowsPowerShell
-  snowlake:
+  snowflake:
     secure: Zt3GFGm4t5NPZtTsYS9KjOszm8tRjZ4dfuygdPdXq5bGKd+36Y3HOQ07uAn1a9ah
 
 version: 0.1.0.{build}

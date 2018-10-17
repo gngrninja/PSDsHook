@@ -42,12 +42,7 @@ You'll need to use the following statement and point it to your local copy of th
 using module 'C:\users\thegn\repos\PsDsHook\out\PSDsHook\0.0.1\PSDsHook.psm1'
 ```
 
-Embeds are sent as an array, and you can have more than one embed per webhook call. Now we'll want to create an empty array.
-```powershell
-[System.Collections.ArrayList]$embedArray = @()
-```
-
-(optional) specify a thumbnail url to use in the hook
+(optional) Specify a thumbnail url to use in the hook
 ```powershell
 $thumbUrl = 'https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png'
 ```
@@ -79,13 +74,8 @@ $embedBuilder.WithColor(
 )
 ```
 
-Add the embed to the array created above:
-```powershell
-$embedArray.Add($embedBuilder) | Out-Null
-```
-
 Finally, call the function that will send the embed array to the webhook url:
 
 ```powershell
-Invoke-PSDsHook -EmbedObject $embedArray -Verbose
+Invoke-PSDsHook -EmbedObject $embedBuilder -Verbose
 ```

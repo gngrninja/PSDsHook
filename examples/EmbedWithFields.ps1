@@ -4,9 +4,6 @@ using module PSDsHook
 #You must specify the full path to the psm1 file in the above using statement
 #Example: using module 'C:\users\thegn\repos\PsDsHook\out\PSDsHook\0.0.1\PSDsHook.psm1'
 
-#Create array of hook properties
-[System.Collections.ArrayList]$embedArray = @()
-
 # (optional) specify a thumbnail url to use in the hook
 $thumbUrl = 'https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png'
 
@@ -47,11 +44,8 @@ $embedBuilder.WithColor(
     )
 )
 
-#Add the embed to the array created above
-$embedArray.Add($embedBuilder) | Out-Null
-
-#Finally, call the function that will send the embed array to the webhook url via the default configuraiton file
-Invoke-PSDsHook -EmbedObject $embedArray -Verbose
+#Finally, call the function that will send the embed array to the webhook url via the default configuration file
+Invoke-PSDsHook -EmbedObject $embedBuilder -Verbose
 
 #Example of using another configuration file:
 # Invoke-PSDsHook -EmbedObject $embedArray -ConfigName 'config2' -Verbose

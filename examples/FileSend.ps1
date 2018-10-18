@@ -7,7 +7,7 @@ using module PSDsHook
 #Message to send
 $pathToFile = "path\to\file.txt"
 
-#Finally, call the function that will send the embed array to the webhook url via the default configuraiton file
+#Finally, call the function that will send the embed array to the webhook url via the default configuration file
 Invoke-PSDsHook -FilePath $pathToFile -Verbose
 
 #Example of using another configuration file:

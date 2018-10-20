@@ -6,7 +6,8 @@ environment:
       PowerShellEdition: WindowsPowerShell
   snowflake:
     secure: MrRpgZA68/UjPLFWrIzXyQ3T6abvamyK7P9pU0TiS2MowX4I5TMrCnbzbJP6C7HF
-  clone_folder: c:\projects\PSDsHook
+
+clone_folder: c:\projects\PSDsHook
 
 version: 0.1.0.{build}
 skip_commits:

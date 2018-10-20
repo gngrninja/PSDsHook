@@ -2,6 +2,8 @@ InModuleScope PsDsHook {
 
     describe 'Invoke-PayloadBuilder' {
 
+        $dirSeperator = [IO.Path]::DirectorySeparatorChar
+
         mock 'Invoke-RestMethod' {}
 
         it 'Handles embeds properly' {
@@ -47,7 +49,7 @@ InModuleScope PsDsHook {
         it 'Handles files properly' {
 
             $fileName = 'test.file'            
-            $testFile = "$PSScriptRoot\..\..\..\artifacts\test.file"   
+            $testFile = "$PSScriptRoot..$($dirSeperator)..$($dirSeperator)..$($dirSeperator)..$($dirSeperator)artifacts$($dirSeperator)$fileName"   
 
             $fileInfo = [DiscordFile]::New($testFile)            
             $fileInfo.Stream.Dispose()

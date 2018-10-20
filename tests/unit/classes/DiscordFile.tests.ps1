@@ -1,7 +1,8 @@
 InModuleScope -ModuleName PsDsHook {
-    #Fix file in use error, use artifacts
-    $fileName = 'test.file'
-    $testFile = "$PSScriptRoot/../../artifacts/test.file"
+
+    $dirSeperator = [IO.Path]::DirectorySeparatorChar
+    $fileName     = 'test.file'
+    $testFile     = "$PSScriptRoot$($dirSeperator)..$($dirSeperator)..$($dirSeperator)artifacts$($dirSeperator)$fileName"
 
     describe 'DiscordFile' {   
 

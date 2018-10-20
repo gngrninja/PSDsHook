@@ -1,8 +1,8 @@
 InModuleScope -ModuleName PsDsHook {
 
-    $dirSeperator = [IO.Path]::DirectorySeparatorChar
+    $dirSeparator = [IO.Path]::DirectorySeparatorChar
     $fileName     = 'test.file'
-    $testFile     = "$PSScriptRoot$($dirSeperator)..$($dirSeperator)..$($dirSeperator)artifacts$($dirSeperator)$fileName"
+    $testFile     = "$PSScriptRoot$($dirSeparator)..$($dirSeparator)..$($dirSeparator)artifacts$($dirSeparator)$fileName"
 
     describe 'DiscordFile' {   
 

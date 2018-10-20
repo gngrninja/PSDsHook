@@ -2,7 +2,7 @@ InModuleScope PsDsHook {
 
     describe 'Invoke-PsDsHook' {
 
-        $dirSeperator = [IO.Path]::DirectorySeparatorChar
+        $dirSeparator = [IO.Path]::DirectorySeparatorChar
 
         mock 'Invoke-RestMethod' {
 
@@ -17,7 +17,7 @@ InModuleScope PsDsHook {
             
         }
 
-        $configDir      = "$PSScriptRoot$($dirSeperator)..$($dirSeperator)..$($dirSeperator)..$($dirSeperator)artifacts$($dirSeperator)"
+        $configDir      = "$PSScriptRoot$($dirSeparator)..$($dirSeparator)..$($dirSeparator)..$($dirSeparator)artifacts$($dirSeparator)"
         $configFullPath = "$PSScriptRoot\..\..\..\artifacts\config.json"        
         $testHookUrl    = 'www.hook.com'
         $name           = 'config'
@@ -75,7 +75,7 @@ InModuleScope PsDsHook {
 
         it 'Should be able to receive a file path' {
 
-            $filePath = Get-ChildItem "$PSScriptRoot$($dirSeperator)..$($dirSeperator)..$($dirSeperator)..$($dirSeperator)artifacts$($dirSeperator)test.file"            
+            $filePath = Get-ChildItem "$PSScriptRoot$($dirSeparator)..$($dirSeparator)..$($dirSeparator)..$($dirSeparator)artifacts$($dirSeparator)test.file"            
             $result   = Invoke-PsDsHook -FilePath $filePath -ConfigName $name
 
             $result.Uri     | Should Be $testHookUrl

@@ -11,6 +11,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Coming soon
 
+## [0.1.3] 2018-10-20
+
+### Fixed
+
+- Fixed build slug also causing casing issues on Linux.
+
+
 ## [0.1.2] 2018-10-20
 
 ### Fixed

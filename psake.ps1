@@ -72,7 +72,7 @@ task Compile -depends Clean {
     $psm1 = Copy-Item -Path (Join-Path -Path $sut -ChildPath 'PSDsHook.psm1') -Destination (Join-Path -Path $outputModVerDir -ChildPath "$($ENV:BHProjectName).psm1") -PassThru
 
     # Organize classes based on how they will be accessed
-    $classDir = (Join-Path -Path $sut -ChildPath 'Classes')
+    $classDir = (Join-Path -Path $sut -ChildPath 'classes')
     @(
         'DiscordColor'      
         'DiscordConfig'          

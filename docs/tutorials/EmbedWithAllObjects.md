@@ -104,3 +104,5 @@ Finally, call the function that will send the embed object (or array of embed ob
 ```powershell
 Invoke-PSDsHook -EmbedObject $embedBuilder -Verbose
 ```
+
+![example](https://raw.githubusercontent.com/gngrninja/PSDsHook/master/media/loadedEmbed.PNG)

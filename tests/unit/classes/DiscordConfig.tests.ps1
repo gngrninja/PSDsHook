@@ -5,7 +5,7 @@ InModuleScope -ModuleName PsDsHook {
 
     describe 'DiscordConfig' {
         
-        it 'Creates configuration file with hook URI' {
+        it 'Creates configuration file with hook url' {
 
             $config = [DiscordConfig]::New($hookUrl, $configPath)
 

@@ -1,16 +1,22 @@
-class DiscordField {
-    
+class DiscordField {    
     [string]$name
     [string]$value
     [bool]$inline = $false
 
-    DiscordField([string]$name, [string]$value)
+    DiscordField(
+        [string]$name, 
+        [string]$value
+    )
     {
         $this.name  = $name
         $this.value = $value
     }
 
-    DiscordField([string]$name, [string]$value, [bool]$inline)
+    DiscordField(
+        [string]$name, 
+        [string]$value, 
+        [bool]$inline
+    )
     {
         $this.name   = $name
         $this.value  = $value

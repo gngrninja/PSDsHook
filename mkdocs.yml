@@ -11,4 +11,5 @@ nav:
       - Embeds: tutorials/Embeds.md
       - Embeds With Fields: tutorials/EmbedsWithFields.md
       - Sending a Simple Message: tutorials/SimpleMessage.md
+      - Embed With All Objects: tutorials/EmbedWithAllObjects.md
       - Sending a File: tutorials/SendFile.md

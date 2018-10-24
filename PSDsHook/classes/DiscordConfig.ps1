@@ -1,5 +1,4 @@
 class DiscordConfig {
-
     [string]$HookUrl = [string]::Empty
 
     DiscordConfig([string]$configPath)
@@ -7,7 +6,10 @@ class DiscordConfig {
         $this.ImportConfig($configPath)    
     }
 
-    DiscordConfig([string]$url, [string]$path)
+    DiscordConfig(
+        [string]$url, 
+        [string]$path
+    )
     {
         $this.HookUrl      = $url      
         $this.ExportConfig($path)

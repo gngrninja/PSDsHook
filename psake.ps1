@@ -77,7 +77,10 @@ task Compile -depends Clean {
         'DiscordColor'      
         'DiscordConfig'          
         'DiscordField'
-        'DiscordThumbnail'    
+        'DiscordThumbnail'
+        'DiscordImage'    
+        'DiscordAuthor'
+        'DiscordFooter'
         'DiscordEmbed'
         'DiscordFile'        
     ) | ForEach-Object {

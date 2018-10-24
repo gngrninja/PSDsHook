@@ -52,5 +52,50 @@ InModuleScope -ModuleName PsDsHook {
             $embedWithThumb.thumbnail.url | Should Be $thumbUrl
 
         }
+
+        it 'Accepts an image object' {
+
+            $imageUrl = 'https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png'
+
+            $disImage       = [DiscordImage]::New($imageUrl)
+            $embedWithImage = [DiscordEmbed]::New('test','test')
+
+            $embedWithImage.AddImage($disImage)
+
+            $embedWithImage           | Should Not Be $null
+            $embedWithImage           | Should BeOfType ([DiscordEmbed])
+            $embedWithImage.image.url | Should Be $imageUrl
+
+        }
+
+        it 'Accepts an author object' {
+
+            $name = "author"
+            
+            $disAuthor       = [DiscordAuthor]::New($name)
+            $embedWithAuthor = [DiscordEmbed]::New('test','test')
+
+            $embedWithAuthor.AddAuthor($disAuthor)
+
+            $embedWithAuthor             | Should Not Be $null
+            $embedWithAuthor             | Should BeOfType ([DiscordEmbed])
+            $embedWithAuthor.author.name | Should Be $name
+
+        }
+
+        it 'Accepts a footer object' {
+
+            $text = "footer"
+            
+            $disFooter       = [DiscordFooter]::New($text)
+            $embedWithFooter = [DiscordEmbed]::New('test','test')
+
+            $embedWithFooter.AddFooter($disFooter)
+
+            $embedWithFooter             | Should Not Be $null
+            $embedWithFooter             | Should BeOfType ([DiscordEmbed])
+            $embedWithFooter.footer.text | Should Be $text
+
+        }
     }
 }

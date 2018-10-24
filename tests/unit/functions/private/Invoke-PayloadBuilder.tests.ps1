@@ -60,5 +60,15 @@ InModuleScope PsDsHook {
             $payload.ToString() | Should Be $fileInfo.ToString()
 
         }
+
+        it 'Handles strings properly' {
+
+            $testPayload = "this is a test for the payload builder"
+
+            $payload = Invoke-PayloadBuilder -PayloadObject $testPayload
+
+            $payload.content | should be ($testPayload | Out-String)
+
+        }
     }
 }

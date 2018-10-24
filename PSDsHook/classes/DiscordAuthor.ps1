@@ -17,7 +17,10 @@ class DiscordAuthor {
         }
     }
 
-    DiscordAuthor([string]$name, [string]$icon_url)
+    DiscordAuthor(
+        [string]$name, 
+        [string]$icon_url
+    )
     {
         if ([string]::IsNullOrEmpty($name))
         {

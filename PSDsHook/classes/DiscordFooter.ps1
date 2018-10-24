@@ -11,11 +11,14 @@ class DiscordFooter {
         }
         else
         {            
-            $this.name = $text
+            $this.text = $text
         }
     }
 
-    DiscordFooter([string]$text, [string]$icon_url)
+    DiscordFooter(
+        [string]$text, 
+        [string]$icon_url
+    )
     {
         if ([string]::IsNullOrEmpty($text))
         {

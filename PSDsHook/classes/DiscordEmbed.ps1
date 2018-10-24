@@ -1,5 +1,4 @@
 class DiscordEmbed {
-
     [string]$title                        = [string]::Empty
     [string]$description                  = [string]::Empty
     [System.Collections.ArrayList]$fields = @()
@@ -15,13 +14,20 @@ class DiscordEmbed {
         Write-Error "Please provide a title and description (and optionally, a color)!"
     }
 
-    DiscordEmbed([string]$embedTitle, [string]$embedDescription)
+    DiscordEmbed(
+        [string]$embedTitle, 
+        [string]$embedDescription
+    )
     {
         $this.title       = $embedTitle
         $this.description = $embedDescription
     }
 
-    DiscordEmbed([string]$embedTitle, [string]$embedDescription, [DiscordColor]$embedColor)
+    DiscordEmbed(
+        [string]      $embedTitle, 
+        [string]      $embedDescription, 
+        [DiscordColor]$embedColor
+    )
     {
         $this.title       = $embedTitle
         $this.description = $embedDescription

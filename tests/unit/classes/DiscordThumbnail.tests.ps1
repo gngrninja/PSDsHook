@@ -6,7 +6,7 @@ InModuleScope -ModuleName PsDsHook {
 
     describe 'DiscordThumbnail' {
 
-        it 'Accepts only a URI if specified' {
+        it 'Accepts only a url if specified' {
 
             $thumb = [DiscordThumbnail]::New($url)
 

@@ -1,5 +1,4 @@
 class DiscordThumbnail {
-
     [string]$url = [string]::Empty
     [int]$width  = $null
     [int]$height = $null
@@ -16,7 +15,11 @@ class DiscordThumbnail {
         }
     }
 
-    DiscordThumbnail([int]$width, [int]$height, [string]$url)
+    DiscordThumbnail(
+            [int]$width, 
+            [int]$height, 
+            [string]$url
+    )
     {
         if ([string]::IsNullOrEmpty($url))
         {

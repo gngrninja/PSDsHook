@@ -161,31 +161,37 @@ function Invoke-PSDsHook {
 
             'file' {
 
-                $fileInfo = Invoke-PayloadBuilder -PayloadObject $FilePath
-                $payload  = $fileInfo.Content
+                if ($PSVersionTable.PSVersion.Major -lt 6) {
 
-                Write-Verbose "Sending:"
-                Write-Verbose ""
-                Write-Verbose ($payload | Out-String)
-
-                #If it is a file, we don't want to include the ContentType parameter as it is included in the body
-                try {
-
-                    Invoke-RestMethod -Uri $hookUrl -Body $payload -Method Post
-
-                }
-                catch {
-
-                    $errorMessage = $_.Exception.Message
-                    throw "Error executing Discord Webhook -> [$errorMessage]!"
-
-                }
-                finally {
-
-                    $fileInfo.Stream.Dispose()
+                    throw "Support for sending files is not yet available in PowerShell 5.x"
                     
-                }
-                
+                } else {
+
+                    $fileInfo = Invoke-PayloadBuilder -PayloadObject $FilePath
+                    $payload  = $fileInfo.Content
+    
+                    Write-Verbose "Sending:"
+                    Write-Verbose ""
+                    Write-Verbose ($payload | Out-String)
+    
+                    #If it is a file, we don't want to include the ContentType parameter as it is included in the body
+                    try {
+    
+                        Invoke-RestMethod -Uri $hookUrl -Body $payload -Method Post
+    
+                    }
+                    catch {
+    
+                        $errorMessage = $_.Exception.Message
+                        throw "Error executing Discord Webhook -> [$errorMessage]!"
+    
+                    }
+                    finally {
+    
+                        $fileInfo.Stream.Dispose()
+                        
+                    }
+                } 
             }
 
             'simple' {

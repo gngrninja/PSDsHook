@@ -2,17 +2,31 @@
 
 $script:seperator = [io.path]::DirectorySeparatorChar
 
-switch ($PSVersionTable.Platform) {
-    'Win32NT' {
+switch ($PSVersionTable.PSEdition) {
+
+    'Desktop' {
 
         $userDir = $env:USERPROFILE
 
     }
 
-    'Unix' {
+    'Core' {
 
-        $userDir = $env:HOME
+        switch ($PSVersionTable.Platform) {
 
+            'Win32NT' {
+        
+                $userDir = $env:USERPROFILE
+        
+            }
+        
+            'Unix' {
+        
+                $userDir = $env:HOME
+        
+            }
+            
+        }
     }
 }
 

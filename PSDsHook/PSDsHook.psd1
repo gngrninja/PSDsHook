@@ -33,7 +33,7 @@ Copyright = '(c) 2018 Mike Roberts'
 Description = 'This module assists with using Discord Webhooks. You can use classes to build objects, and make it easier when using embeds.'
 
 # Minimum version of the PowerShell engine required by this module
-PowerShellVersion = '6.0'
+PowerShellVersion = '5.1'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''

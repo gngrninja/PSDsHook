@@ -76,11 +76,20 @@ InModuleScope PsDsHook {
         it 'Should be able to receive a file path' {
 
             $filePath = Get-ChildItem "$PSScriptRoot$($dirSeparator)..$($dirSeparator)..$($dirSeparator)..$($dirSeparator)artifacts$($dirSeparator)test.file"            
-            $result   = Invoke-PsDsHook -FilePath $filePath -ConfigName $name
 
-            $result.Uri     | Should Be $testHookUrl
-            $result.Payload | Should Be 'System.Net.Http.StreamContent'
+            if ($PSVersionTable.PSVersion.Major -lt 6) {
 
+                {$result = Invoke-PsDsHook -FilePath $filePath -ConfigName $name} | 
+                            Should Throw "Support for sending files is not yet available in PowerShell 5.x"
+
+            } else {
+
+                $result   = Invoke-PsDsHook -FilePath $filePath -ConfigName $name
+    
+                $result.Uri     | Should Be $testHookUrl
+                $result.Payload | Should Be 'System.Net.Http.StreamContent'
+
+            }
         }
 
         it 'Should list configurations' {

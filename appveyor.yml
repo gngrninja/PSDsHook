@@ -15,6 +15,6 @@ skip_commits:
 build: off
 
 #Kick off the CI/CD pipeline
-#- ps:   if ($env:PowerShellEdition -eq 'WindowsPowerShell') { . .\build.ps1 -Task Test }
 test_script:  
   - pwsh: if ($env:PowerShellEdition -eq 'PowerShellCore')    { . .\build.ps1 -Task Publish }
+  - ps:   if ($env:PowerShellEdition -eq 'WindowsPowerShell') { . .\build.ps1 -Task Test }

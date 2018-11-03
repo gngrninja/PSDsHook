@@ -12,7 +12,7 @@
 RootModule = 'PSDsHook.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.4'
+ModuleVersion = '0.1.5'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -30,7 +30,7 @@ CompanyName = 'Ginger Ninja'
 Copyright = '(c) 2018 Mike Roberts'
 
 # Description of the functionality provided by this module
-Description = 'This module assists with using Discord Webhooks. You can use classes to build objects, and make it easier when using embeds.'
+Description = 'This module assists with using Discord Webhooks. You use classes to build objects, which makes creating embeds fun and easy.'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.1'

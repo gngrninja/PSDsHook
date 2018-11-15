@@ -3,9 +3,11 @@
 [![hook](https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png)](https://www.gngrninja.com/script-ninja/2018/3/17/using-discord-webhooks-and-embeds-with-powershell-part-2)
 
 # PowerShell -> Discord Webhook
-PSDsHook allows you to easily utilize Discord webhooks via [PowerShell Core](https://github.com/PowerShell/PowerShell/releases).
+PSDsHook allows you to easily utilize Discord webhooks via [PowerShell](https://github.com/PowerShell/PowerShell/releases).
 
-PowerShell core is required for its enhancements to Invoke-RestMethod.
+This module will work with PowerShell version 5.1, with the exception of sending binary files. 
+
+If you need to send files to Discord channels, you'll want to use PowerShell Core until support is added for 5.1.
 
 ## Getting Started
 

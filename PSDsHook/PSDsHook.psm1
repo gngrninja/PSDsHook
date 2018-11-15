@@ -25,7 +25,6 @@ switch ($PSVersionTable.PSEdition) {
                 $userDir = $env:HOME
         
             }
-            
         }
     }
 }

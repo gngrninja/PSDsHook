@@ -1,4 +1,5 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/9u4rk1k9u4r233b0?svg=true)](https://ci.appveyor.com/project/gngrninja/psdshook) [![Documentation Status](https://readthedocs.org/projects/psdshook/badge/?version=latest)](https://psdshook.readthedocs.io/en/latest/?badge=latest) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build status](https://ci.appveyor.com/api/projects/status/9u4rk1k9u4r233b0?svg=true)](https://ci.appveyor.com/project/gngrninja/psdshook) [![Build Status](https://ginja.visualstudio.com/PSDSHook/_apis/build/status/PSDSHook-CI)](https://ginja.visualstudio.com/PSDSHook/_build/latest?definitionId=2)
+[![Documentation Status](https://readthedocs.org/projects/psdshook/badge/?version=latest)](https://psdshook.readthedocs.io/en/latest/?badge=latest) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![hook](https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png)](https://www.gngrninja.com/script-ninja/2018/3/17/using-discord-webhooks-and-embeds-with-powershell-part-2)
 

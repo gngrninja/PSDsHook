@@ -16,7 +16,7 @@ Import-Module 'path\to\module.psd1'
 
 To create the configuration file, run:
 ```powershell
-Invoke-PsDsHook -CreateConfig -WebhookUrl 'https://discordapp.com/api/webhooks/4221456689714954341337/thisisfakeandwillnotwork' -Verbose
+Invoke-PsDsHook -CreateConfig 'https://discordapp.com/api/webhooks/4221456689714954341337/thisisfakeandwillnotwork' -Verbose
 ```
 
 ## Creating more configuration files
@@ -26,7 +26,7 @@ This can be handy when you want to send a hook to a different channel with the m
 
 To create another configuration file, run:
 ```powershell
-Invoke-PsDsHook -CreateConfig -WebhookUrl 'https://discordapp.com/api/webhooks/4221456689714954341337/thisisfakeandwillnotwork' -ConfigName 'config2' -Verbose
+Invoke-PsDsHook -CreateConfig 'https://discordapp.com/api/webhooks/4221456689714954341337/thisisfakeandwillnotwork' -ConfigName 'config2' -Verbose
 ```
 
 ## List configurations

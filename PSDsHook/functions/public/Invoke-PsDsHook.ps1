@@ -8,10 +8,10 @@ function Invoke-PSDsHook {
     This function allows you to use Discord Webhooks with embeds, files, and various configuration settings
 
     .PARAMETER CreateConfig
-    If specified, will create a configuration based on other parameter settings (ConfigName and WebhookUrl)
+    If specified, will create a configuration file containing the webhook URL as the argument.
+    You can use the ConfigName parameter to create another configuration separate from the default.
 
-    .PARAMETER WebhookUrl
-    If used with CreateConfig, this is the url that will be stored in the configuration file.
+    .PARAMETER WebhookUrl   
     If used with an embed or file, this URL will be used in the webhook call.
 
     .PARAMETER ConfigName
@@ -28,12 +28,12 @@ function Invoke-PSDsHook {
     (Create a configuration file)
     Configuration files are stored in a sub directory of your user's home directory named .psdshook/configs
 
-    Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook"
+    Invoke-PsDsHook -CreateConfig "www.hook.com/hook"
     .EXAMPLE
     (Create a configuration file with a non-standard name)
     Configuration files are stored in a sub directory of your user's home directory named .psdshook/configs
 
-    Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook2" -ConfigName 'config2'
+    Invoke-PsDsHook -CreateConfig "www.hook.com/hook2" -ConfigName 'config2'
 
     .EXAMPLE
     (Send an embed with the default config)
@@ -58,7 +58,7 @@ function Invoke-PSDsHook {
     )
     
     Finally, call the function that will send the embed array to the webhook url via the default configuraiton file
-    Invoke-PSDsHook -EmbedObject $embedBuilder -Verbose
+    Invoke-PSDsHook $embedBuilder -Verbose
 
     .EXAMPLE
     (Send an webhook with just text)
@@ -70,7 +70,7 @@ function Invoke-PSDsHook {
         [Parameter(
             ParameterSetName = 'createDsConfig'
         )]
-        [switch]
+        [string]
         $CreateConfig,
 
         [Parameter(
@@ -98,7 +98,8 @@ function Invoke-PSDsHook {
         $ListConfigs,
 
         [Parameter(
-            ParameterSetName = 'embed'
+            ParameterSetName = 'embed',
+            Position = 0
         )]
         $EmbedObject,
 
@@ -112,7 +113,7 @@ function Invoke-PSDsHook {
     begin {            
 
         #Create full path to the configuration file
-        $configPath = "$($configDir)$($seperator)$($ConfigName).json"
+        $configPath = "$($configDir)$($separator)$($ConfigName).json"
                     
         #Ensure we can access the path, and error out if we cannot
         if (!(Test-Path -Path $configPath -ErrorAction SilentlyContinue) -and !$CreateConfig -and !$WebhookUrl) {
@@ -217,7 +218,7 @@ function Invoke-PSDsHook {
 
             'createDsConfig' {
                 
-                [DiscordConfig]::New($WebhookUrl, $configPath)
+                [DiscordConfig]::New($CreateConfig, $configPath)
 
             }
 

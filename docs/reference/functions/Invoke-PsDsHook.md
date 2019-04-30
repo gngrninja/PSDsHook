@@ -15,7 +15,7 @@ Use PowerShell classes to make using Discord Webhooks easy and extensible
 
 ### createDsConfig
 ```
-Invoke-PSDsHook [-CreateConfig] [-WebhookUrl <String>] [-ConfigName <String>] [<CommonParameters>]
+Invoke-PSDsHook [-CreateConfig <String>] [-WebhookUrl <String>] [-ConfigName <String>] [<CommonParameters>]
 ```
 
 ### file
@@ -30,7 +30,7 @@ Invoke-PSDsHook [-WebhookUrl <String>] [-ConfigName <String>] [-ListConfigs] [<C
 
 ### embed
 ```
-Invoke-PSDsHook [-WebhookUrl <String>] [-ConfigName <String>] [-EmbedObject <Object>] [<CommonParameters>]
+Invoke-PSDsHook [-WebhookUrl <String>] [-ConfigName <String>] [[-EmbedObject] <Object>] [<CommonParameters>]
 ```
 
 ### simple
@@ -50,7 +50,7 @@ This function allows you to use Discord Webhooks with embeds, files, and various
 
 Configuration files are stored in a sub directory of your user's home directory named .psdshook/configs
 
-Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook"
+Invoke-PsDsHook -CreateConfig "www.hook.com/hook"
 
 ### EXAMPLE 2
 ```
@@ -59,7 +59,7 @@ Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook"
 
 Configuration files are stored in a sub directory of your user's home directory named .psdshook/configs
 
-Invoke-PsDsHook -CreateConfig -WebhookUrl "www.hook.com/hook2" -ConfigName 'config2'
+Invoke-PsDsHook -CreateConfig "www.hook.com/hook2" -ConfigName 'config2'
 
 ### EXAMPLE 3
 ```
@@ -86,7 +86,7 @@ $embedBuilder.WithColor(
 )
 
 Finally, call the function that will send the embed array to the webhook url via the default configuraiton file
-Invoke-PSDsHook -EmbedObject $embedBuilder -Verbose
+Invoke-PSDsHook $embedBuilder -Verbose
 
 ### EXAMPLE 4
 ```
@@ -98,22 +98,22 @@ Invoke-PSDsHook -HookText 'this is the webhook message' -Verbose
 ## PARAMETERS
 
 ### -CreateConfig
-If specified, will create a configuration based on other parameter settings (ConfigName and WebhookUrl)
+If specified, will create a configuration file containing the webhook URL as the argument.
+You can use the ConfigName parameter to create another configuration separate from the default.
 
 ```yaml
-Type: SwitchParameter
+Type: String
 Parameter Sets: createDsConfig
 Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -WebhookUrl
-If used with CreateConfig, this is the url that will be stored in the configuration file.
 If used with an embed or file, this URL will be used in the webhook call.
 
 ```yaml
@@ -183,7 +183,7 @@ Parameter Sets: embed
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

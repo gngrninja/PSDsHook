@@ -54,5 +54,5 @@ $embedBuilder.WithColor(
 Finally, call the function that will send the embed array to the webhook url:
 
 ```powershell
-Invoke-PSDsHook -EmbedObject $embedBuilder -Verbose
+Invoke-PSDsHook $embedBuilder -Verbose
 ```

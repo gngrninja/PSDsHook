@@ -68,7 +68,9 @@ $embedBuilder.AddImage(
 )
 
 #Finally, call the function that will send the embed array to the webhook url via the default configuration file
-Invoke-PSDsHook -EmbedObject $embedBuilder -Verbose
+#Since the EmbedObject parameter is in position 0, we don't have to specify it
+Invoke-PSDsHook $embedBuilder -Verbose
 
 #Example of using another configuration file:
+
 # Invoke-PSDsHook -EmbedObject $embedArray -ConfigName 'config2' -Verbose

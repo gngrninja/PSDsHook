@@ -1,6 +1,6 @@
 #Setup default paths for module in user home dir
 
-$script:seperator = [io.path]::DirectorySeparatorChar
+$script:separator = [IO.Path]::DirectorySeparatorChar
 
 switch ($PSVersionTable.PSEdition) {
 
@@ -30,4 +30,4 @@ switch ($PSVersionTable.PSEdition) {
 }
 
 $script:defaultPsDsDir = (Join-Path -Path $userDir -ChildPath '.psdshook')
-$script:configDir      = "$($defaultPsDsDir)$($seperator)configs"
+$script:configDir      = "$($defaultPsDsDir)$($separator)configs"

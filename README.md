@@ -29,7 +29,7 @@ Build instructions coming soon if you would like to build it yourself. Simply ru
 
 To create the configuration file, run:
 ```powershell
-Invoke-PsDsHook -CreateConfig -WebhookUrl 'https://discordapp.com/api/webhooks/4221456689714954341337/thisisfakeandwillnotwork' -Verbose
+Invoke-PsDsHook -CreateConfig 'https://discordapp.com/api/webhooks/4221456689714954341337/thisisfakeandwillnotwork' -Verbose
 ```
 
 To create/send an embed, run:
@@ -110,7 +110,7 @@ $embedBuilder.AddImage(
 Finally, call the function that will send the embed array to the webhook url:
 
 ```powershell
-Invoke-PSDsHook -EmbedObject $embedBuilder -Verbose
+Invoke-PSDsHook $embedBuilder -Verbose
 ```
 
 ![example](https://raw.githubusercontent.com/gngrninja/PSDsHook/master/media/loadedEmbed.PNG)

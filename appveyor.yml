@@ -5,7 +5,7 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       PowerShellEdition: WindowsPowerShell
   snowflake:
-    secure: MrRpgZA68/UjPLFWrIzXyQ3T6abvamyK7P9pU0TiS2MowX4I5TMrCnbzbJP6C7HF
+    secure: 3UmNcNcgHr/eELyT600vslGsaT+Dz0MCF4M53HQhgM2OgaS8dSru3Ixf/sJO7muA
 
 clone_folder: c:\projects\PSDsHook
 

@@ -5,9 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.2.1] TBD
+## [0.2.2] TBD
 ### Adding
 -TBD
+
+## [0.2.1] 2019-12-24
+
+### Fixed
+- Bugfix for a bug brought to light by a new version of PowerShell Core. ContentType for Invoke-RestMethod is now set to 'Application/Json', and not an unset variable (whoops)
 
 ## [0.2.0] 2019-04-29
 

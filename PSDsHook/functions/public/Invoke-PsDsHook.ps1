@@ -149,7 +149,7 @@ function Invoke-PSDsHook {
 
                 try {
 
-                    Invoke-RestMethod -Uri $hookUrl -Body ($payload | ConvertTo-Json -Depth 4) -ContentType "Application/Json" -Method Post
+                    Invoke-RestMethod -Uri $hookUrl -Body ($payload | ConvertTo-Json -Depth 4) -ContentType 'Application/Json' -Method Post
 
                 }
                 catch {
@@ -205,7 +205,7 @@ function Invoke-PSDsHook {
 
                 try {
                     
-                    Invoke-RestMethod -Uri $hookUrl -Body ($payload | ConvertTo-Json -Depth 4) -ContentType $contentType -Method Post
+                    Invoke-RestMethod -Uri $hookUrl -Body ($payload | ConvertTo-Json -Depth 4) -ContentType 'Application/Json' -Method Post
 
                 }
                 catch {

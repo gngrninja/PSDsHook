@@ -175,7 +175,7 @@ function Invoke-PSDsHook {
                     Write-Verbose ""
                     Write-Verbose ($payload | Out-String)
     
-                    #If it is a file, we don't want to include the ContentType parameter as it is included in the body
+                    #If it is a file, we don't want to include the ContentType parameter, as it is included in the body
                     try {
     
                         Invoke-RestMethod -Uri $hookUrl -Body $payload -Method Post
@@ -224,7 +224,11 @@ function Invoke-PSDsHook {
 
             'configList' {
 
-                $configs = (Get-ChildItem -Path (Split-Path $configPath) | Where-Object {$PSitem.Extension -eq '.json'} | Select-Object -ExpandProperty Name)
+                $configs = (Get-ChildItem -Path (Split-Path $configPath) | 
+                    Where-Object {
+                        $PSitem.Extension -eq '.json'
+                    } | 
+                    Select-Object -ExpandProperty Name)
                 if ($configs) {
 
                     Write-Host "Configuration files in [$configDir]:"

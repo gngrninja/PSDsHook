@@ -31,7 +31,7 @@ task Init {
     
     'Pester', 'PlatyPS', 'PSScriptAnalyzer' | Foreach-Object {
         if (-not (Get-Module -Name $_ -ListAvailable -Verbose:$false -ErrorAction SilentlyContinue)) {
-            Install-Module -Name $_ -Repository PSGallery -Scope CurrentUser -AllowClobber -Confirm:$false -ErrorAction Stop
+            Install-Module -Name $_ -Repository PSGallery -Scope CurrentUser -AllowClobber -Confirm:$false -ErrorAction Stop -Force
         }
         Import-Module -Name $_ -Verbose:$false -Force -ErrorAction Stop
     }
@@ -150,7 +150,7 @@ task CreateMarkdownHelp -Depends Compile {
     Write-Host `t"Module markdown help created at [$mdHelpPath]"
 
     @($env:BHProjectName).ForEach({
-        Remove-Module -Name $_ -Verbose:$false
+        Remove-Module -Name $_ -Verbose:$false 
     })
 
 } -description 'Create initial markdown help files'

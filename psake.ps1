@@ -40,7 +40,7 @@ task Init {
 
 task Test -Depends Init, Analyze, Pester -description 'Run test suite'
 
-task Analyze -Depends Build {
+task Analyze -depends Compile {
     Write-Host "[$outputModVerDir]"
     $analysis = Invoke-ScriptAnalyzer -Path $outputModVerDir -Verbose:$false -Recurse
     $errors = $analysis | Where-Object {$_.Severity -eq 'Error'}
@@ -101,7 +101,7 @@ task Compile -depends Clean {
 
 } -description 'Compiles module from source'
 
-task Pester -Depends Build {
+task Pester -depends Compile{
     Push-Location
     Set-Location -PassThru $outputModDir
     if(-not $ENV:BHProjectPath) {

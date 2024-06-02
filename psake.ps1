@@ -29,7 +29,7 @@ task Init {
     $($(Get-Item ENV:BH*) | Out-String)
 "@    
     
-    'Pester', 'PlatyPS', 'PSScriptAnalyzer' | Foreach-Object {
+    'Pester', 'PSScriptAnalyzer' | Foreach-Object {
         if (-not (Get-Module -Name $_ -ListAvailable -Verbose:$false -ErrorAction SilentlyContinue)) {
             Install-Module -Name $_ -Repository PSGallery -Scope CurrentUser -AllowClobber -Confirm:$false -ErrorAction Stop -Force
         }
@@ -139,7 +139,7 @@ task Pester -Depends Build {
     $env:PSModulePath = $origModulePath
 
 } -description 'Run Pester tests'
-
+<#
 task CreateMarkdownHelp -Depends Compile {
 
     #Get functions
@@ -174,6 +174,17 @@ task CreateExternalHelp -Depends CreateMarkdownHelp {
 
 Task RegenerateHelp -Depends UpdateMarkdownHelp, CreateExternalHelp
 
+#CreateMarkdownHelp (add back to build)
+task Build -depends Compile, CreateMarkdownHelp, CreateExternalHelp {
+
+    # External help    
+    $helpXml = New-ExternalHelp "$projectRoot\docs\reference\functions" -OutputPath (Join-Path -Path $outputModVerDir -ChildPath 'en-US') -Force
+    
+    Write-Host `t"Module XML help created at [.helpXml]"
+
+}
+#>
+
 task Clean -depends Init {
 
     Remove-Module -Name $env:BHProjectName -Force -ErrorAction SilentlyContinue
@@ -192,15 +203,7 @@ task Clean -depends Init {
 } -description 'Cleans module output directory'
 
 
-#CreateMarkdownHelp (add back to build)
-task Build -depends Compile, CreateMarkdownHelp, CreateExternalHelp {
 
-    # External help    
-    $helpXml = New-ExternalHelp "$projectRoot\docs\reference\functions" -OutputPath (Join-Path -Path $outputModVerDir -ChildPath 'en-US') -Force
-    
-    Write-Host `t"Module XML help created at [.helpXml]"
-
-}
 
 Task Publish -Depends Test {
 

@@ -101,7 +101,7 @@ task Compile -depends Clean {
 
 } -description 'Compiles module from source'
 
-task Pester -depends Compile{
+task Pester -depends Compile {
     Push-Location
     Set-Location -PassThru $outputModDir
     if(-not $ENV:BHProjectPath) {
@@ -117,7 +117,6 @@ task Pester -depends Compile{
 
     Remove-Module $ENV:BHProjectName -ErrorAction SilentlyContinue -Verbose:$false
     Import-Module -Name $outputModDir -Force -Verbose:$false
-
     $testResultsXml = Join-Path -Path $outputDir -ChildPath 'testResults.xml'
     $testResults    = Invoke-Pester -Path $tests -PassThru -OutputFile $testResultsXml -OutputFormat NUnitXml
 

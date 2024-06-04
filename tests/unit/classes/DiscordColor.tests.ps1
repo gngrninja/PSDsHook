@@ -6,7 +6,7 @@
 
             $defaultValue = [DiscordColor]::New()
 
-            $defaultValue | Should Not Be $null
+            $defaultValue | Should -Not -Be $null
 
         }
 
@@ -14,7 +14,7 @@
 
             $defaultValue = [DiscordColor]::New()
 
-            $defaultValue | Should Be "8311585"
+            $defaultValue | Should -Be "8311585"
 
         }
 
@@ -23,11 +23,11 @@
             $hexColor  = [DiscordColor]::New('0XFF5733')
             $hexColor2 = [DiscordColor]::New(0XFF5733)
 
-            $hexColor.HexColor | Should Be '0xFF5733'
-            $hexColor          | Should Be '16734003'
+            $hexColor.HexColor | Should -Be '0xFF5733'
+            $hexColor          | Should -BeExactly '16734003'
 
-            $hexColor2.HexColor | Should Be '0xFF5733'
-            $hexColor2          | Should Be '16734003'
+            $hexColor2.HexColor | Should -Be '0xFF5733'
+            $hexColor2          | Should -Be '16734003'
 
         }
 
@@ -35,7 +35,7 @@
 
             $stringColor = [DiscordColor]::New('blue')
             
-            $stringColor | Should Be '4886754'
+            $stringColor | Should -Be '4886754'
 
         }
 
@@ -43,7 +43,7 @@
 
             $decimalColor = [DiscordColor]::New(4886754)
 
-            $decimalColor | Should Be '4886754'
+            $decimalColor | Should -Be '4886754'
 
         }
 
@@ -51,8 +51,8 @@
 
             $rgbColor = [DiscordColor]::New(255,0,255)
 
-            $rgbColor.HexColor | Should Be '0xFF00FF'
-            $rgbColor          | Should Be '16711935'
+            $rgbColor.HexColor | Should -Be '0xFF00FF'
+            $rgbColor          | Should -Be '16711935'
 
         }
     }

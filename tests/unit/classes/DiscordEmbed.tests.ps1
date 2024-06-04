@@ -1,45 +1,36 @@
 InModuleScope -ModuleName PsDsHook {
-
     Describe 'DiscordEmbed' {
-
-        $title        = 'embedTitle'
-        $description  = 'embedDescription'
-        $testField    = [DiscordField]::New('FieldName','FieldValue')
-        $embedBuilder = [DiscordEmbed]::New($title, $description)
-
-        it 'Should accept a title and description' {
-            
-            $embedBuilder             | Should Not Be $null
-            $embedBuilder.title       | Should Be $title
-            $embedBuilder.description | Should Be $description
-
+        BeforeAll {
+            $title        = 'embedTitle'
+            $description  = 'embedDescription'
+            $testField    = [DiscordField]::New('FieldName','FieldValue')
+            $embedBuilder = [DiscordEmbed]::New($title, $description)
         }
 
-        it 'Should accept a field object' {
+        It 'Should accept a title and description' {            
+            $embedBuilder             | Should -Not -Be Null
+            $embedBuilder.title       | Should -Be $title
+            $embedBuilder.description | Should -Be $description
+        }
 
+        It 'Should accept a field object' {
             $embedBuilder.AddField($testField)
-            
-            $embedBuilder.ListFields.Count | Should Be 1
 
+            $embedBuilder.ListFields.Count | Should -Be 1
         }
 
-        it 'Should contain a default color' {
-
-            $embedBuilder.color | Should Be '8311585'
-
+        It 'Should contain a default color' {
+            $embedBuilder.color | Should -Be '8311585'
         }
 
-        it 'Should accept a color' {
-
+        It 'Should accept a color' {
             $color          = [DiscordColor]::New(255, 0, 255)
             $embedWithColor = [DiscordEmbed]::New('test','test',$color)
 
-            $embedWithColor.color | Should Be '16711935'
-                        
+            $embedWithColor.color | Should -Be '16711935'                        
         }
 
-        it 'Accepts a thumbnail object' {
-
+        It 'Accepts a thumbnail object' {
             $thumbUrl = 'https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png'
 
             $thumbnail      = [DiscordThumbnail]::New($thumbUrl)
@@ -47,14 +38,12 @@ InModuleScope -ModuleName PsDsHook {
 
             $embedWithThumb.AddThumbnail($thumbnail)
 
-            $embedWithThumb               | Should Not Be $null
-            $embedWithThumb               | Should BeOfType ([DiscordEmbed])
-            $embedWithThumb.thumbnail.url | Should Be $thumbUrl
-
+            $embedWithThumb               | Should -Not -Be Null
+            $embedWithThumb               | Should -BeOfType ([DiscordEmbed])
+            $embedWithThumb.thumbnail.url | Should -Be $thumbUrl
         }
 
-        it 'Accepts an image object' {
-
+        It 'Accepts an image object' {
             $imageUrl = 'https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png'
 
             $disImage       = [DiscordImage]::New($imageUrl)
@@ -62,14 +51,12 @@ InModuleScope -ModuleName PsDsHook {
 
             $embedWithImage.AddImage($disImage)
 
-            $embedWithImage           | Should Not Be $null
-            $embedWithImage           | Should BeOfType ([DiscordEmbed])
-            $embedWithImage.image.url | Should Be $imageUrl
-
+            $embedWithImage           | Should -Not -Be Null
+            $embedWithImage           | Should -BeOfType ([DiscordEmbed])
+            $embedWithImage.image.url | Should -Be $imageUrl
         }
 
-        it 'Accepts an author object' {
-
+        It 'Accepts an author object' {
             $name = "author"
             
             $disAuthor       = [DiscordAuthor]::New($name)
@@ -77,14 +64,12 @@ InModuleScope -ModuleName PsDsHook {
 
             $embedWithAuthor.AddAuthor($disAuthor)
 
-            $embedWithAuthor             | Should Not Be $null
-            $embedWithAuthor             | Should BeOfType ([DiscordEmbed])
-            $embedWithAuthor.author.name | Should Be $name
-
+            $embedWithAuthor             | Should -Not -Be Null
+            $embedWithAuthor             | Should -BeOfType ([DiscordEmbed])
+            $embedWithAuthor.author.name | Should -Be $name
         }
 
-        it 'Accepts a footer object' {
-
+        It 'Accepts a footer object' {
             $text = "footer"
             
             $disFooter       = [DiscordFooter]::New($text)
@@ -92,10 +77,9 @@ InModuleScope -ModuleName PsDsHook {
 
             $embedWithFooter.AddFooter($disFooter)
 
-            $embedWithFooter             | Should Not Be $null
-            $embedWithFooter             | Should BeOfType ([DiscordEmbed])
-            $embedWithFooter.footer.text | Should Be $text
-
+            $embedWithFooter             | Should -Not -Be Null
+            $embedWithFooter             | Should -BeOfType ([DiscordEmbed])
+            $embedWithFooter.footer.text | Should -Be $text
         }
     }
 }

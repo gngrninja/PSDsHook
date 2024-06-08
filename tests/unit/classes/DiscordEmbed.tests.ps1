@@ -30,6 +30,19 @@ InModuleScope -ModuleName PsDsHook {
             $embedWithColor.color | Should -Be '16711935'                        
         }
 
+        It 'Should accept a timestamp with no value passed in' {
+            $embedTime = [DiscordEmbed]::New('test','test')
+            $embedTime.AddTimeStamp()
+            $embedTime.timestamp | Should -Not -Be null
+        }
+
+        It 'Should accept a timestamp with value passed in' {
+            $timestamp = [DateTime]::Now
+            $embedTime = [DiscordEmbed]::New('test','test')
+
+            $embedTime.AddTimeStamp($timestamp)
+            $embedTime.timestamp | Should -Eq $timestamp.ToString('yyyy-MM-dd HH:mm:ss')
+        }
         It 'Accepts a thumbnail object' {
             $thumbUrl = 'https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png'
 

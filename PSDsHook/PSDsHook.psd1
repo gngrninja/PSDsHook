@@ -12,7 +12,7 @@
 RootModule = 'PSDsHook.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.2.1'
+ModuleVersion = '1.0.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -27,7 +27,7 @@ Author = 'Mike Roberts'
 CompanyName = 'Ginger Ninja'
 
 # Copyright statement for this module
-Copyright = '(c) 2019 Mike Roberts'
+Copyright = '(c) 2024 Mike Roberts'
 
 # Description of the functionality provided by this module
 Description = 'This module assists with using Discord Webhooks. You use classes to build objects, which makes creating embeds fun and easy.'

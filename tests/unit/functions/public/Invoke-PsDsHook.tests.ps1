@@ -26,7 +26,6 @@ InModuleScope PsDsHook {
         }
 
         It 'Should be able to receive an embed array' {
-
             [System.Collections.ArrayList]$embedArray = @()            
             $embedBuilder = [DiscordEmbed]::New('test title', 'test content')
 
@@ -42,7 +41,6 @@ InModuleScope PsDsHook {
 
             $result.Uri     | Should -Be $testHookUrl
             $result.Payload | Should -Not -Be null
-
         }
 
         It 'Should be able to receive an embed (no array)' { 
@@ -70,8 +68,7 @@ InModuleScope PsDsHook {
             $result.Payload | Should -Not -Be null
         }
 
-        It 'Should be able to receive an embed as the first positioned parameter' {
-  
+        It 'Should be able to receive an embed as the first positioned parameter' {  
             $embedBuilder = [DiscordEmbed]::New('test title', 'test content')
 
             $embedArray = New-Object 'System.Collections.Generic.List[DiscordEmbed]'
@@ -89,11 +86,9 @@ InModuleScope PsDsHook {
 
             $result.Uri     | Should -Be $testHookUrl
             $result.Payload | Should -Not -Be null
-
         }
 
         It 'Should be able to receive a file path' {
-
             $filePath = Get-ChildItem "$PSScriptRoot$($dirSeparator)..$($dirSeparator)..$($dirSeparator)..$($dirSeparator)artifacts$($dirSeparator)test.file"            
 
             if ($PSVersionTable.PSVersion.Major -lt 6) {

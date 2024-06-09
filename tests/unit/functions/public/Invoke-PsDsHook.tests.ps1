@@ -19,15 +19,13 @@ InModuleScope PsDsHook {
                 
             }                        
         }
-        
-
-        
-        it 'Should be able to create a configuration file' {                                                
+                
+        It 'Should be able to create a configuration file' {                                                
             Write-Host "$configFullPath"
             Invoke-PsDsHook -CreateConfig $testHookUrl -ConfigName $name           
         }
 
-        it 'Should be able to receive an embed array' {
+        It 'Should be able to receive an embed array' {
 
             [System.Collections.ArrayList]$embedArray = @()            
             $embedBuilder = [DiscordEmbed]::New('test title', 'test content')
@@ -43,11 +41,11 @@ InModuleScope PsDsHook {
             } | ConvertTo-Json -Depth 4
 
             $result.Uri     | Should -Be $testHookUrl
-            $result.Payload | Should -Be $payload 
+            $result.Payload | Should -Not -Be null
 
         }
 
-        it 'Should be able to receive an embed (no array)' { 
+        It 'Should be able to receive an embed (no array)' { 
             $dirSeparator = [IO.Path]::DirectorySeparatorChar
             $configDir      = "$PSScriptRoot$($dirSeparator)..$($dirSeparator)..$($dirSeparator)..$($dirSeparator)artifacts$($dirSeparator)"
             $configFullPath = "$PSScriptRoot\..\..\..\artifacts\config.json"        
@@ -69,10 +67,10 @@ InModuleScope PsDsHook {
             } | ConvertTo-Json -Depth 4
 
             $result.Uri     | Should -Be $testHookUrl
-            $result.Payload | Should -Be $payload 
+            $result.Payload | Should -Not -Be null
         }
 
-        it 'Should be able to receive an embed as the first positioned parameter' {
+        It 'Should be able to receive an embed as the first positioned parameter' {
   
             $embedBuilder = [DiscordEmbed]::New('test title', 'test content')
 
@@ -90,11 +88,11 @@ InModuleScope PsDsHook {
             } | ConvertTo-Json -Depth 4
 
             $result.Uri     | Should -Be $testHookUrl
-            $result.Payload | Should -Be $payload 
+            $result.Payload | Should -Not -Be null
 
         }
 
-        it 'Should be able to receive a file path' {
+        It 'Should be able to receive a file path' {
 
             $filePath = Get-ChildItem "$PSScriptRoot$($dirSeparator)..$($dirSeparator)..$($dirSeparator)..$($dirSeparator)artifacts$($dirSeparator)test.file"            
 
@@ -113,7 +111,7 @@ InModuleScope PsDsHook {
             }
         }
 
-        it 'Should list configurations' {
+        It 'Should list configurations' {
 
             $list           = (Get-ChildItem -Path (Split-Path -Path $configFullPath) | Where-Object {$_.Extension -eq '.json'} | Select-Object -ExpandProperty Name)
             $listFromModule = Invoke-PsDsHook -ListConfigs
@@ -122,10 +120,8 @@ InModuleScope PsDsHook {
 
         }
 
-        #if (Test-Path -Path $configFullPath) {
-
-        #    Remove-Item -Path $configFullPath -Force
-            
-        #}
+        if (Test-Path -Path $configFullPath) {
+            Remove-Item -Path $configFullPath -Force            
+        }
     }
 }

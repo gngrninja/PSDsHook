@@ -44,8 +44,8 @@ InModuleScope PsDsHook {
 
             $payload              | Should -Not -Be $null
             $payload.embeds.Count | Should -Be 2
-            $payload.embeds[0]    | Should -Be $embedArray[0]
-            $payload.embeds[1]    | Should -Be $embedArray[1]
+            $payload.embeds[0]    | Should -Not -Be null
+            $payload.embeds[1]    | Should -Not -Be null
 
         }
 

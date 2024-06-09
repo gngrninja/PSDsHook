@@ -129,7 +129,7 @@ $embedBuilder.AddImage(
 
 Add a timestamp (no value, defaults to current time you use the command):
 ```powershell
-$embedBuilder.TimeStamp()
+$embedBuilder.AddTimeStamp()
 ```
 
 Add a custom timestamp (pass in a value of type [DateTime] or one that can be resolved to [DateTime]):

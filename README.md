@@ -52,7 +52,7 @@ using module 'C:\users\thegn\repos\PsDsHook\out\PSDsHook\0.0.1\PSDsHook.psm1'
 $thumbUrl = 'https://static1.squarespace.com/static/5644323de4b07810c0b6db7b/t/5aa44874e4966bde3633b69c/1520715914043/webhook_resized.png'
 ```
 
-Create embed builder object via the [DiscordEmbed] class. 
+Create an embed builder object via the [DiscordEmbed] class. 
 You can customize the title and description.
 ```powershell
 $embedBuilder = [DiscordEmbed]::New(

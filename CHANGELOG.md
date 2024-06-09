@@ -5,9 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.2.2] TBD
-### Adding
--TBD
+## [1.0.0] 2024-06-08
+### Fixed
+- Can now send minimal embeds without issue
+- Cleaned up / modernized Pester tests
+
+### Added
+- You can now send a timestamp
 
 ## [0.2.1] 2019-12-24
 

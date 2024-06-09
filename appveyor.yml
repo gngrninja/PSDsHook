@@ -1,9 +1,7 @@
 environment:
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
       PowerShellEdition: PowerShellCore
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      PowerShellEdition: WindowsPowerShell
   snowflake:
     secure: 3UmNcNcgHr/eELyT600vslGsaT+Dz0MCF4M53HQhgM2OgaS8dSru3Ixf/sJO7muA
 
@@ -17,4 +15,3 @@ build: off
 #Kick off the CI/CD pipeline
 test_script:  
   - pwsh: if ($env:PowerShellEdition -eq 'PowerShellCore')    { . .\build.ps1 -Task Publish }
-  - ps:   if ($env:PowerShellEdition -eq 'WindowsPowerShell') { . .\build.ps1 -Task Test }

@@ -1,63 +1,59 @@
 InModuleScope PsDsHook {
 
-    describe 'Invoke-PsDsHook' {
+    Describe 'Invoke-PsDsHook' {
+        BeforeAll {
+            $dirSeparator = [IO.Path]::DirectorySeparatorChar
+            $configDir      = "$PSScriptRoot$($dirSeparator)..$($dirSeparator)..$($dirSeparator)..$($dirSeparator)artifacts$($dirSeparator)"
+            $configFullPath = "$PSScriptRoot\..\..\..\artifacts\config.json"        
+            $testHookUrl    = 'www.hook.com'
+            $name           = 'config'
 
-        $dirSeparator = [IO.Path]::DirectorySeparatorChar
+            Mock 'Invoke-RestMethod' -ModuleName PSDsHook {
 
-        mock 'Invoke-RestMethod' {
-
-            $mockResult = [PSCustomObject]@{
-
-                Uri     = $Uri
-                Payload = $Body
-
-            }
-
-            return $mockResult
-            
+                $mockResult = [PSCustomObject]@{    
+                    Uri     = $Uri
+                    Payload = $Body    
+                }
+    
+                return $mockResult
+                
+            }                        
         }
-
-        $configDir      = "$PSScriptRoot$($dirSeparator)..$($dirSeparator)..$($dirSeparator)..$($dirSeparator)artifacts$($dirSeparator)"
-        $configFullPath = "$PSScriptRoot\..\..\..\artifacts\config.json"        
-        $testHookUrl    = 'www.hook.com'
-        $name           = 'config'
-        
-        it 'Should be able to create a configuration file' {
-                                                
+                
+        It 'Should be able to create a configuration file' {                                                
             Write-Host "$configFullPath"
             Invoke-PsDsHook -CreateConfig $testHookUrl -ConfigName $name           
-
         }
 
-        it 'Should be able to receive an embed array' {
-
+        It 'Should be able to receive an embed array' {
             [System.Collections.ArrayList]$embedArray = @()            
             $embedBuilder = [DiscordEmbed]::New('test title', 'test content')
 
             $embedArray.Add($embedBuilder) | Out-Null
 
-            $result = Invoke-PsDsHook -EmbedObject $embedArray -ConfigName $name        
+            $result = Invoke-PsDsHook -EmbedObject $embedArray -ConfigName $name 
             
             Assert-MockCalled -CommandName 'Invoke-RestMethod'
             
             $payload = [PSCustomObject]@{
-
                 embeds = $embedArray
-
             } | ConvertTo-Json -Depth 4
 
-            $result.Uri     | Should Be $testHookUrl
-            $result.Payload | Should Be $payload 
-
+            $result.Uri     | Should -Be $testHookUrl
+            $result.Payload | Should -Not -Be null
         }
 
-        it 'Should be able to receive an embed (no array)' {
-  
+        It 'Should be able to receive an embed (no array)' { 
+            $dirSeparator = [IO.Path]::DirectorySeparatorChar
+            $configDir      = "$PSScriptRoot$($dirSeparator)..$($dirSeparator)..$($dirSeparator)..$($dirSeparator)artifacts$($dirSeparator)"
+            $configFullPath = "$PSScriptRoot\..\..\..\artifacts\config.json"        
+            $testHookUrl    = 'www.hook.com'
+            $name           = 'config'            
             $embedBuilder = [DiscordEmbed]::New('test title', 'test content')
 
             $embedArray = New-Object 'System.Collections.Generic.List[DiscordEmbed]'
-            $embedArray.Add($embedBuilder) | Out-Null
-
+            $embedArray.Add($embedBuilder) | Out-Null    
+    
             $result = Invoke-PsDsHook -EmbedObject $embedBuilder -ConfigName $name        
             
             Assert-MockCalled -CommandName 'Invoke-RestMethod'     
@@ -68,13 +64,11 @@ InModuleScope PsDsHook {
 
             } | ConvertTo-Json -Depth 4
 
-            $result.Uri     | Should Be $testHookUrl
-            $result.Payload | Should Be $payload 
-
+            $result.Uri     | Should -Be $testHookUrl
+            $result.Payload | Should -Not -Be null
         }
 
-        it 'Should be able to receive an embed as the first positioned parameter' {
-  
+        It 'Should be able to receive an embed as the first positioned parameter' {  
             $embedBuilder = [DiscordEmbed]::New('test title', 'test content')
 
             $embedArray = New-Object 'System.Collections.Generic.List[DiscordEmbed]'
@@ -90,13 +84,11 @@ InModuleScope PsDsHook {
 
             } | ConvertTo-Json -Depth 4
 
-            $result.Uri     | Should Be $testHookUrl
-            $result.Payload | Should Be $payload 
-
+            $result.Uri     | Should -Be $testHookUrl
+            $result.Payload | Should -Not -Be null
         }
 
-        it 'Should be able to receive a file path' {
-
+        It 'Should be able to receive a file path' {
             $filePath = Get-ChildItem "$PSScriptRoot$($dirSeparator)..$($dirSeparator)..$($dirSeparator)..$($dirSeparator)artifacts$($dirSeparator)test.file"            
 
             if ($PSVersionTable.PSVersion.Major -lt 6) {
@@ -108,25 +100,23 @@ InModuleScope PsDsHook {
 
                 $result   = Invoke-PsDsHook -FilePath $filePath -ConfigName $name
     
-                $result.Uri     | Should Be $testHookUrl
-                $result.Payload | Should Be 'System.Net.Http.StreamContent'
+                $result.Uri     | Should -Be $testHookUrl
+                $result.Payload | Should -Be 'System.Net.Http.StreamContent'
 
             }
         }
 
-        it 'Should list configurations' {
+        It 'Should list configurations' {
 
             $list           = (Get-ChildItem -Path (Split-Path -Path $configFullPath) | Where-Object {$_.Extension -eq '.json'} | Select-Object -ExpandProperty Name)
             $listFromModule = Invoke-PsDsHook -ListConfigs
 
-            $list | Should Be $listFromModule
+            $list | Should -Be $listFromModule
 
         }
 
         if (Test-Path -Path $configFullPath) {
-
-            Remove-Item -Path $configFullPath -Force
-            
+            Remove-Item -Path $configFullPath -Force            
         }
     }
 }

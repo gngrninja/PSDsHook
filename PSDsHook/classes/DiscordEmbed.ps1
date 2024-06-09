@@ -8,6 +8,7 @@ class DiscordEmbed {
     $author                               = [string]::Empty
     $footer                               = [string]::Empty
     $url                                  = [string]::Empty
+    $timestamp                            = [string]::Empty
 
     DiscordEmbed()
     {
@@ -32,6 +33,16 @@ class DiscordEmbed {
         $this.title       = $embedTitle
         $this.description = $embedDescription
         $this.color       = $embedColor.ToString()
+    }
+
+    [void]AddTimeStamp()
+    {
+        $this.timeStamp = [DateTime]::Now.ToString('yyyy-MM-dd HH:mm:ss')        
+    }
+
+    [void]AddTimeStamp([DateTime]$stamp)
+    {
+        $this.timeStamp = $stamp.ToString('yyyy-MM-dd HH:mm:ss')        
     }
 
     [void]AddField($field) 

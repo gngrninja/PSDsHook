@@ -70,6 +70,25 @@ $embedBuilder.AddThumbnail(
 )
 ```
 
+Add a couple fields (the $true is for inline and is optional):
+```powershell
+$embedBuilder.AddField(
+    [DiscordField]::New(
+        'field name',
+        'field value',
+        $true
+    )
+)
+
+$embedBuilder.AddField(
+    [DiscordField]::New(
+        'other field name',
+        'other field value',
+        $true
+    )
+)
+```
+
 Add a color:
 ```powershell
 $embedBuilder.WithColor(
@@ -106,6 +125,16 @@ $embedBuilder.AddImage(
         $thumbUrl
     )
 )
+```
+
+Add a timestamp (no value, defaults to current time you use the command):
+```powershell
+$embedBuilder.TimeStamp()
+```
+
+Add a custom timestamp (pass in a value of type [DateTime] or one that can be resolved to [DateTime]):
+```powershell
+$embedBuilder.AddTimeStamp('5/3/24 05:50:21')
 ```
 Finally, call the function that will send the embed array to the webhook url:
 

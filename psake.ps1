@@ -29,9 +29,9 @@ task Init {
     $($(Get-Item ENV:BH*) | Out-String)
 "@    
     
-    'Pester', 'PlatyPS', 'PSScriptAnalyzer' | Foreach-Object {
+    'Pester', 'PSScriptAnalyzer' | Foreach-Object {
         if (-not (Get-Module -Name $_ -ListAvailable -Verbose:$false -ErrorAction SilentlyContinue)) {
-            Install-Module -Name $_ -Repository PSGallery -Scope CurrentUser -AllowClobber -Confirm:$false -ErrorAction Stop
+            Install-Module -Name $_ -Repository PSGallery -Scope CurrentUser -AllowClobber -Confirm:$false -ErrorAction Stop -Force
         }
         Import-Module -Name $_ -Verbose:$false -Force -ErrorAction Stop
     }
@@ -40,7 +40,7 @@ task Init {
 
 task Test -Depends Init, Analyze, Pester -description 'Run test suite'
 
-task Analyze -Depends Build {
+task Analyze -depends Compile {
     Write-Host "[$outputModVerDir]"
     $analysis = Invoke-ScriptAnalyzer -Path $outputModVerDir -Verbose:$false -Recurse
     $errors = $analysis | Where-Object {$_.Severity -eq 'Error'}
@@ -101,7 +101,7 @@ task Compile -depends Clean {
 
 } -description 'Compiles module from source'
 
-task Pester -Depends Build {
+task Pester -depends Compile {
     Push-Location
     Set-Location -PassThru $outputModDir
     if(-not $ENV:BHProjectPath) {
@@ -117,7 +117,6 @@ task Pester -Depends Build {
 
     Remove-Module $ENV:BHProjectName -ErrorAction SilentlyContinue -Verbose:$false
     Import-Module -Name $outputModDir -Force -Verbose:$false
-
     $testResultsXml = Join-Path -Path $outputDir -ChildPath 'testResults.xml'
     $testResults    = Invoke-Pester -Path $tests -PassThru -OutputFile $testResultsXml -OutputFormat NUnitXml
 
@@ -139,7 +138,7 @@ task Pester -Depends Build {
     $env:PSModulePath = $origModulePath
 
 } -description 'Run Pester tests'
-
+<#
 task CreateMarkdownHelp -Depends Compile {
 
     #Get functions
@@ -150,7 +149,7 @@ task CreateMarkdownHelp -Depends Compile {
     Write-Host `t"Module markdown help created at [$mdHelpPath]"
 
     @($env:BHProjectName).ForEach({
-        Remove-Module -Name $_ -Verbose:$false
+        Remove-Module -Name $_ -Verbose:$false 
     })
 
 } -description 'Create initial markdown help files'
@@ -174,6 +173,17 @@ task CreateExternalHelp -Depends CreateMarkdownHelp {
 
 Task RegenerateHelp -Depends UpdateMarkdownHelp, CreateExternalHelp
 
+#CreateMarkdownHelp (add back to build)
+task Build -depends Compile, CreateMarkdownHelp, CreateExternalHelp {
+
+    # External help    
+    $helpXml = New-ExternalHelp "$projectRoot\docs\reference\functions" -OutputPath (Join-Path -Path $outputModVerDir -ChildPath 'en-US') -Force
+    
+    Write-Host `t"Module XML help created at [.helpXml]"
+
+}
+#>
+
 task Clean -depends Init {
 
     Remove-Module -Name $env:BHProjectName -Force -ErrorAction SilentlyContinue
@@ -192,15 +202,7 @@ task Clean -depends Init {
 } -description 'Cleans module output directory'
 
 
-#CreateMarkdownHelp (add back to build)
-task Build -depends Compile, CreateMarkdownHelp, CreateExternalHelp {
 
-    # External help    
-    $helpXml = New-ExternalHelp "$projectRoot\docs\reference\functions" -OutputPath (Join-Path -Path $outputModVerDir -ChildPath 'en-US') -Force
-    
-    Write-Host `t"Module XML help created at [.helpXml]"
-
-}
 
 Task Publish -Depends Test {
 
